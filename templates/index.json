@@ -3,12 +3,12 @@
     "hero": {
       "type": "hero",
       "settings": {
-        "eyebrow": "New season",
-        "heading": "Wear the story",
-        "subheading": "Small-batch streetwear built for everyday movement.",
+        "eyebrow": "Jesus Based",
+        "heading": "Clothing for the Journey",
+        "subheading": "Hope. Healing. Freedom. For those walking in faith, covered by His grace.",
         "button_label": "Shop New Arrivals",
         "button_link": "",
-        "button_label_2": "Find Your Piece",
+        "button_label_2": "Our Mission",
         "button_link_2": ""
       }
     },
@@ -20,10 +20,10 @@
       "blocks": {
         "hoodies": { "type": "category", "settings": { "title": "Hoodies" } },
         "tees": { "type": "category", "settings": { "title": "Tees" } },
-        "hats": { "type": "category", "settings": { "title": "Hats" } },
-        "zips": { "type": "category", "settings": { "title": "Zip-Ups" } }
+        "acid-wash": { "type": "category", "settings": { "title": "Acid Wash" } },
+        "new": { "type": "category", "settings": { "title": "New Arrivals" } }
       },
-      "block_order": ["hoodies", "tees", "hats", "zips"]
+      "block_order": ["hoodies", "tees", "acid-wash", "new"]
     },
     "best-sellers": {
       "type": "featured-collection",
@@ -36,24 +36,24 @@
       "type": "brand-story",
       "settings": {
         "layout": "left",
-        "eyebrow": "Our Story",
-        "heading": "Built by people who wear it",
-        "body": "<p>We started ShopShroud to make clothing that holds up to real life — made in small batches, tested by our own community, and priced fairly.</p>",
-        "button_label": "Learn our story",
+        "eyebrow": "Our Mission",
+        "heading": "You are not alone",
+        "body": "<p>Shroud exists to remind every person in recovery that you are not alone. You are seen. You are loved. And there is a purpose for your life.</p><p>2 Corinthians 5:17 — Therefore, if anyone is in Christ, the new creation has come.</p>",
+        "button_label": "Read our story",
         "button_link": ""
       }
     },
     "premium-tees": {
       "type": "featured-collection",
       "settings": {
-        "heading": "Premium Tees",
+        "heading": "New Arrivals",
         "products_to_show": 4
       }
     },
     "testimonials": {
       "type": "testimonials",
       "settings": {
-        "heading": "Worn by real people"
+        "heading": "Real stories, real freedom"
       },
       "blocks": {
         "t1": { "type": "testimonial", "settings": {} },

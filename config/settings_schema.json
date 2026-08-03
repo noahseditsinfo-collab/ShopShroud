@@ -1,9 +1,9 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "ShopShroud",
+    "theme_name": "Shroud",
     "theme_version": "1.0.0",
-    "theme_author": "ShopShroud",
+    "theme_author": "Shroud",
     "theme_documentation_url": "https://shopshroud.com",
     "theme_support_url": "https://shopshroud.com"
   },
@@ -14,37 +14,37 @@
         "type": "color",
         "id": "color_background",
         "label": "Background",
-        "default": "#F6F1E7"
+        "default": "#F3EFE6"
       },
       {
         "type": "color",
         "id": "color_background_secondary",
         "label": "Secondary background",
-        "default": "#EBE1CE"
+        "default": "#111111"
       },
       {
         "type": "color",
         "id": "color_text",
         "label": "Text",
-        "default": "#2B2620"
+        "default": "#161513"
       },
       {
         "type": "color",
         "id": "color_accent",
         "label": "Accent (buttons, links)",
-        "default": "#7C6A4D"
+        "default": "#AD8A4E"
       },
       {
         "type": "color",
         "id": "color_accent_secondary",
         "label": "Accent secondary (sale badges, highlights)",
-        "default": "#A6472F"
+        "default": "#54603F"
       },
       {
         "type": "color",
         "id": "color_border",
         "label": "Borders / dividers",
-        "default": "#D9CDB4"
+        "default": "#D9CFB8"
       }
     ]
   },
