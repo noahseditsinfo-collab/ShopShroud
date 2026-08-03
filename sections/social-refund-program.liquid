@@ -1,0 +1,49 @@
+<section class="social-refund">
+  <h2>{{ section.settings.heading }}</h2>
+  <p>{{ section.settings.subheading }}</p>
+
+  <div class="social-refund__tiers">
+    {%- for block in section.blocks -%}
+      <div class="social-refund__tier" {{ block.shopify_attributes }}>
+        <strong>{{ block.settings.reward }}</strong>
+        <span>{{ block.settings.requirement }}</span>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  {%- if section.settings.button_label != blank -%}
+    <a href="{{ section.settings.button_link }}" class="button button--primary" style="margin-top: 1.5rem;">{{ section.settings.button_label }}</a>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Get paid to post",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Get Paid to Post" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Post a video wearing your Shroud piece and earn store credit based on views." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Learn More" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "tier",
+      "name": "Tier",
+      "settings": [
+        { "type": "text", "id": "reward", "label": "Reward", "default": "$5 credit" },
+        { "type": "text", "id": "requirement", "label": "Requirement", "default": "1,000+ views" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Get paid to post",
+      "blocks": [
+        { "type": "tier", "settings": { "reward": "$5 credit", "requirement": "1,000+ views" } },
+        { "type": "tier", "settings": { "reward": "$15 credit", "requirement": "10,000+ views" } },
+        { "type": "tier", "settings": { "reward": "$50 credit", "requirement": "50,000+ views" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

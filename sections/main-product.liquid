@@ -19,7 +19,22 @@
 
   <div class="product__info">
     <h1 class="product__title">{{ product.title }}</h1>
+
+    {%- if section.settings.show_social_proof -%}
+      <div class="product__social-proof">
+        <span class="product__rating">
+          {%- for i in (1..5) -%}★{%- endfor -%}
+          <span class="product__rating-count">({{ section.settings.review_count }} reviews)</span>
+        </span>
+        <span class="product__sold-count">{{ section.settings.sold_count }} sold in the last 30 days</span>
+      </div>
+    {%- endif -%}
+
     <div id="ProductPrice">{% render 'price', product: product %}</div>
+
+    {%- if section.settings.show_bnpl -%}
+      <p class="product__bnpl">Or 4 interest-free payments as low as {{ product.price | divided_by: 4 | money }} with <strong>Shop Pay</strong></p>
+    {%- endif -%}
 
     <script type="application/json" id="ProductVariantsJson">{{ product.variants | json }}</script>
     <script>window.themeMoneyFormat = {{ shop.money_format | json }};</script>
@@ -46,6 +61,17 @@
         {%- endfor -%}
       </select>
 
+      {%- if section.settings.show_fit_helper -%}
+        <div class="product__fit-helper">
+          <div class="product__fit-slider">
+            <span>True to size</span>
+            <span class="is-active">Relaxed</span>
+            <span>Oversized</span>
+          </div>
+          <a href="{{ section.settings.size_guide_link }}" class="product__fit-link">Find your size</a>
+        </div>
+      {%- endif -%}
+
       <div class="product-form__quantity">
         <label for="Quantity">Qty</label>
         <input type="number" id="Quantity" name="quantity" value="1" min="1">
@@ -54,7 +80,30 @@
       <button type="submit" id="AddToCartButton" class="button button--primary product-form__submit" {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>
         <span id="AddToCartText">{%- if product.selected_or_first_available_variant.available -%}Add to Cart{%- else -%}Sold Out{%- endif -%}</span>
       </button>
+
+      {%- if section.settings.show_ship_date -%}
+        <p class="product__ship-date">{{ section.settings.ship_date_text }}</p>
+      {%- endif -%}
+
+      {%- if section.settings.show_points -%}
+        <p class="product__points">Earn {{ product.price | divided_by: 100 | ceil }} points with this purchase</p>
+      {%- endif -%}
     {% endform %}
+
+    {%- if section.settings.show_trust_badges -%}
+      <div class="product__trust-badges">
+        <span>{% render 'icon' with 'search' %} Built to Last</span>
+        <span>{% render 'icon' with 'close' %} 30-Day Returns</span>
+        <span>{% render 'icon' with 'account' %} {{ section.settings.review_count }}+ Reviews</span>
+      </div>
+    {%- endif -%}
+
+    {%- if section.settings.show_review_quote and section.settings.review_quote != blank -%}
+      <blockquote class="product__review-quote">
+        "{{ section.settings.review_quote }}"
+        <cite>— {{ section.settings.review_author }}</cite>
+      </blockquote>
+    {%- endif -%}
 
     <div class="product__description">{{ product.description }}</div>
   </div>
@@ -63,6 +112,20 @@
 {% schema %}
 {
   "name": "Product information",
-  "settings": []
+  "settings": [
+    { "type": "checkbox", "id": "show_social_proof", "label": "Show rating and sold count", "default": true },
+    { "type": "text", "id": "review_count", "label": "Review count", "default": "128" },
+    { "type": "text", "id": "sold_count", "label": "Sold count (last 30 days)", "default": "42" },
+    { "type": "checkbox", "id": "show_bnpl", "label": "Show buy-now-pay-later messaging", "default": true },
+    { "type": "checkbox", "id": "show_fit_helper", "label": "Show fit slider / size helper", "default": true },
+    { "type": "url", "id": "size_guide_link", "label": "Size guide link" },
+    { "type": "checkbox", "id": "show_ship_date", "label": "Show ship date messaging", "default": true },
+    { "type": "text", "id": "ship_date_text", "label": "Ship date text", "default": "In stock. Ships within 2-3 business days." },
+    { "type": "checkbox", "id": "show_points", "label": "Show loyalty points callout", "default": true },
+    { "type": "checkbox", "id": "show_trust_badges", "label": "Show trust badges row", "default": true },
+    { "type": "checkbox", "id": "show_review_quote", "label": "Show pulled review quote", "default": true },
+    { "type": "textarea", "id": "review_quote", "label": "Review quote", "default": "This piece reminds me daily of my faith. The quality is incredible and it's become part of my everyday rotation." },
+    { "type": "text", "id": "review_author", "label": "Review author", "default": "Verified Buyer" }
+  ]
 }
 {% endschema %}

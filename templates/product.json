@@ -4,13 +4,37 @@
       "type": "main-product",
       "settings": {}
     },
+    "bundle": {
+      "type": "bundle-crosssell",
+      "settings": {}
+    },
+    "get-paid-to-post": {
+      "type": "social-refund-program",
+      "settings": {},
+      "blocks": {
+        "t1": { "type": "tier", "settings": { "reward": "$5 credit", "requirement": "1,000+ views" } },
+        "t2": { "type": "tier", "settings": { "reward": "$15 credit", "requirement": "10,000+ views" } },
+        "t3": { "type": "tier", "settings": { "reward": "$50 credit", "requirement": "50,000+ views" } }
+      },
+      "block_order": ["t1", "t2", "t3"]
+    },
     "related": {
       "type": "featured-collection",
       "settings": {
-        "heading": "You may also like",
+        "heading": "Complete the Look",
         "products_to_show": 4
       }
+    },
+    "team-trust": {
+      "type": "meet-team",
+      "settings": {},
+      "blocks": {
+        "m1": { "type": "member", "settings": {} },
+        "m2": { "type": "member", "settings": {} },
+        "m3": { "type": "member", "settings": {} }
+      },
+      "block_order": ["m1", "m2", "m3"]
     }
   },
-  "order": ["main", "related"]
+  "order": ["main", "bundle", "get-paid-to-post", "related", "team-trust"]
 }

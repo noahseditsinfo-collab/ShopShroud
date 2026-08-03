@@ -1,0 +1,29 @@
+<section class="bundle-crosssell">
+  <div class="bundle-crosssell__inner">
+    <div class="bundle-crosssell__product">
+      <img src="{{ product.featured_image | image_url: width: 150 }}" alt="{{ product.title | escape }}" width="64" height="64">
+      <span>{{ product.title }}</span>
+    </div>
+    <span class="bundle-crosssell__plus">+</span>
+    {%- if section.settings.bundle_product != blank -%}
+      <div class="bundle-crosssell__product">
+        <img src="{{ section.settings.bundle_product.featured_image | image_url: width: 150 }}" alt="{{ section.settings.bundle_product.title | escape }}" width="64" height="64">
+        <span>{{ section.settings.bundle_product.title }}</span>
+      </div>
+    {%- endif -%}
+    <div>
+      <p class="bundle-crosssell__savings">{{ section.settings.heading }}</p>
+      <a href="{{ section.settings.bundle_product.url }}" class="button button--secondary">Add Both to Cart</a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bundle & save",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Bundle & save 10%" },
+    { "type": "product", "id": "bundle_product", "label": "Bundle with product" }
+  ]
+}
+{% endschema %}

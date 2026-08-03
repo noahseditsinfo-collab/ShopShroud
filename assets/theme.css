@@ -455,6 +455,42 @@ h1, h2, h3, h4 {
 .product-form__quantity { display: flex; align-items: center; gap: 0.6rem; }
 .product-form__quantity input { width: 60px; padding: 0.5rem; border: 1px solid var(--color-border); }
 .product__description { margin-top: 2rem; font-size: 0.95rem; }
+.product__social-proof { display: flex; gap: 1rem; align-items: center; font-size: 0.85rem; margin-bottom: 0.5rem; flex-wrap: wrap; }
+.product__rating { color: var(--color-accent); letter-spacing: 1px; }
+.product__rating-count { color: var(--color-text); opacity: 0.7; letter-spacing: normal; margin-left: 0.35rem; }
+.product__sold-count { opacity: 0.7; }
+.product__bnpl { font-size: 0.85rem; opacity: 0.75; margin: 0.5rem 0 0; }
+.product__fit-helper { margin: -0.5rem 0 0.5rem; }
+.product__fit-slider { display: flex; justify-content: space-between; font-size: 0.75rem; opacity: 0.6; margin-bottom: 0.25rem; }
+.product__fit-slider .is-active { font-weight: 700; opacity: 1; color: var(--color-accent); }
+.product__fit-link { font-size: 0.78rem; text-decoration: underline; }
+.product__ship-date { font-size: 0.82rem; opacity: 0.75; margin-top: 0.5rem; }
+.product__points { font-size: 0.82rem; color: var(--color-accent); margin-top: 0.25rem; font-weight: 600; }
+.product__trust-badges { display: flex; flex-wrap: wrap; gap: 1.25rem; margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px solid var(--color-border); font-size: 0.78rem; }
+.product__trust-badges span { display: inline-flex; align-items: center; gap: 0.35rem; opacity: 0.8; }
+.product__review-quote { margin: 1.5rem 0 0; padding: 1rem 1.25rem; background: var(--color-bg-secondary); border-radius: 6px; font-size: 0.88rem; font-style: italic; }
+.product__review-quote cite { display: block; margin-top: 0.5rem; font-size: 0.78rem; font-style: normal; opacity: 0.7; }
+
+/* ============ Bundle cross-sell ============ */
+.bundle-crosssell { padding: 2rem 1.5rem; max-width: var(--page-width); margin: 0 auto; }
+.bundle-crosssell__inner { display: flex; align-items: center; gap: 1.5rem; background: var(--color-bg-secondary); border-radius: 8px; padding: 1.5rem; flex-wrap: wrap; }
+.bundle-crosssell__product { display: flex; align-items: center; gap: 0.75rem; flex: 1; min-width: 200px; }
+.bundle-crosssell__product img { width: 64px; height: 64px; object-fit: cover; border-radius: 4px; }
+.bundle-crosssell__plus { font-size: 1.5rem; opacity: 0.4; }
+.bundle-crosssell__savings { font-weight: 700; color: var(--color-accent-secondary); }
+
+/* ============ Social refund program ============ */
+.social-refund { padding: 3rem 1.5rem; max-width: var(--page-width); margin: 0 auto; text-align: center; }
+.social-refund__tiers { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1.25rem; margin-top: 2rem; }
+.social-refund__tier { border: 1px solid var(--color-border); border-radius: 6px; padding: 1.25rem; }
+.social-refund__tier strong { display: block; font-size: 1.3rem; color: var(--color-accent); margin-bottom: 0.25rem; }
+
+/* ============ Meet the team ============ */
+.meet-team { padding: 3rem 1.5rem; max-width: var(--page-width); margin: 0 auto; text-align: center; }
+.meet-team__row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+.meet-team__member img { width: 100px; height: 100px; border-radius: 50%; object-fit: cover; margin: 0 auto 0.75rem; }
+.meet-team__member h3 { font-size: 0.9rem; margin-bottom: 0.15rem; }
+.meet-team__member p { font-size: 0.78rem; opacity: 0.7; margin: 0; }
 
 /* ============ Collection page ============ */
 .collection { padding: 3rem 1.5rem; }
