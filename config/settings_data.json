@@ -1,11 +1,12 @@
 {
   "current": {
-    "color_background": "#F3EFE6",
-    "color_background_secondary": "#111111",
-    "color_text": "#161513",
-    "color_accent": "#AD8A4E",
-    "color_accent_secondary": "#54603F",
-    "color_border": "#D9CFB8",
+    "color_background": "#FFFFFF",
+    "color_background_secondary": "#F1F1F1",
+    "color_dark_panel": "#0A0A0A",
+    "color_text": "#0A0A0A",
+    "color_accent": "#0A0A0A",
+    "color_accent_secondary": "#4D4D4D",
+    "color_border": "#DDDDDD",
     "font_heading": "archivo_black_n4",
     "font_body": "work_sans_n4",
     "page_width": 1280,

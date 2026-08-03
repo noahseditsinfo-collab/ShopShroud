@@ -12,7 +12,10 @@
              width="{{ section.settings.logo_width }}"
              loading="eager">
       {%- else -%}
-        <span class="site-header__logo-text">{{ shop.name }}</span>
+        <img src="{{ 'logo-shroud.png' | asset_url }}"
+             alt="{{ shop.name }}"
+             width="{{ section.settings.logo_width }}"
+             loading="eager">
       {%- endif -%}
     </a>
 

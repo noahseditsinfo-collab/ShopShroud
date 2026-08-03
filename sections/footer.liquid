@@ -5,7 +5,7 @@
       {%- if section.settings.logo != blank -%}
         <img src="{{ section.settings.logo | image_url: width: 240 }}" alt="{{ shop.name }}" width="140" loading="lazy">
       {%- else -%}
-        <span class="site-footer__logo-text">{{ shop.name }}</span>
+        <img src="{{ 'logo-shroud.png' | asset_url }}" alt="{{ shop.name }}" width="140" loading="lazy">
       {%- endif -%}
       <p>{{ section.settings.brand_text }}</p>
       <div class="site-footer__social">

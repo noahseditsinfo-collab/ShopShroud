@@ -14,37 +14,43 @@
         "type": "color",
         "id": "color_background",
         "label": "Background",
-        "default": "#F3EFE6"
+        "default": "#FFFFFF"
       },
       {
         "type": "color",
         "id": "color_background_secondary",
-        "label": "Secondary background",
-        "default": "#111111"
+        "label": "Secondary background (cards, tiles)",
+        "default": "#F1F1F1"
+      },
+      {
+        "type": "color",
+        "id": "color_dark_panel",
+        "label": "Dark panel background (announcement bar, newsletter)",
+        "default": "#0A0A0A"
       },
       {
         "type": "color",
         "id": "color_text",
         "label": "Text",
-        "default": "#161513"
+        "default": "#0A0A0A"
       },
       {
         "type": "color",
         "id": "color_accent",
         "label": "Accent (buttons, links)",
-        "default": "#AD8A4E"
+        "default": "#0A0A0A"
       },
       {
         "type": "color",
         "id": "color_accent_secondary",
         "label": "Accent secondary (sale badges, highlights)",
-        "default": "#54603F"
+        "default": "#4D4D4D"
       },
       {
         "type": "color",
         "id": "color_border",
         "label": "Borders / dividers",
-        "default": "#D9CFB8"
+        "default": "#DDDDDD"
       }
     ]
   },

@@ -2,6 +2,8 @@
   <div class="brand-story__image">
     {%- if section.settings.image != blank -%}
       <img src="{{ section.settings.image | image_url: width: 900 }}" alt="" loading="lazy" width="900" height="{{ 900 | divided_by: section.settings.image.aspect_ratio }}">
+    {%- else -%}
+      <img src="{{ 'brand-story-tee.png' | asset_url }}" alt="" loading="lazy">
     {%- endif -%}
   </div>
   <div class="brand-story__content">

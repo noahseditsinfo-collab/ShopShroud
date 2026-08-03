@@ -10,6 +10,10 @@
                  alt="{{ block.settings.image.alt | default: block.settings.heading | escape }}"
                  loading="{% if forloop.first %}eager{% else %}lazy{% endif %}" width="1800" height="{{ 1800 | divided_by: block.settings.image.aspect_ratio }}">
           </div>
+        {%- elsif forloop.first -%}
+          <div class="hero__image">
+            <img src="{{ 'hero-hoodie.png' | asset_url }}" alt="{{ block.settings.heading | escape }}" loading="eager">
+          </div>
         {%- endif -%}
 
         <div class="hero__content page-width">
