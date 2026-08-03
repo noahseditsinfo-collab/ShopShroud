@@ -1,0 +1,45 @@
+<section class="trust-row page-width">
+  {%- for block in section.blocks -%}
+    <div class="trust-row__item" {{ block.shopify_attributes }}>
+      <span class="trust-row__icon">{% render 'icon' with block.settings.icon %}</span>
+      <h3>{{ block.settings.title }}</h3>
+      <p>{{ block.settings.description }}</p>
+    </div>
+  {%- endfor -%}
+</section>
+
+{% schema %}
+{
+  "name": "Trust row",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Trust item",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon", "default": "cart",
+          "options": [
+            { "value": "cart", "label": "Shipping" },
+            { "value": "close", "label": "Returns" },
+            { "value": "account", "label": "Community" },
+            { "value": "search", "label": "Quality" }
+          ]
+        },
+        { "type": "text", "id": "title", "label": "Title", "default": "Fast Shipping" },
+        { "type": "textarea", "id": "description", "label": "Description", "default": "Most orders ship within 2-3 business days." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust row",
+      "blocks": [
+        { "type": "item", "settings": { "icon": "cart", "title": "Fast Shipping", "description": "Most orders ship within 2-3 business days." } },
+        { "type": "item", "settings": { "icon": "close", "title": "Easy Returns", "description": "30-day hassle-free returns." } },
+        { "type": "item", "settings": { "icon": "search", "title": "Built to Last", "description": "Premium fabric made for everyday wear." } },
+        { "type": "item", "settings": { "icon": "account", "title": "Purpose-Driven", "description": "Every order supports our mission." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

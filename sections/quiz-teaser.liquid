@@ -1,0 +1,32 @@
+<section class="quiz-teaser page-width">
+  <div class="quiz-teaser__inner">
+    <div class="quiz-teaser__text">
+      <p class="quiz-teaser__eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2>{{ section.settings.heading }}</h2>
+      <p>{{ section.settings.subheading }}</p>
+      <a href="{{ section.settings.button_link }}" class="button button--primary">{{ section.settings.button_label }}</a>
+    </div>
+    {%- if section.settings.image != blank -%}
+      <div class="quiz-teaser__image">
+        <img src="{{ section.settings.image | image_url: width: 700 }}" alt="" loading="lazy" width="700" height="{{ 700 | divided_by: section.settings.image.aspect_ratio }}">
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Quiz teaser",
+  "settings": [
+    { "type": "image_picker", "id": "image", "label": "Image" },
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Not sure where to start?" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Find Your Piece" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Answer two quick questions and we'll point you to the right fit." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Take the Quiz" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "presets": [
+    { "name": "Quiz teaser" }
+  ]
+}
+{% endschema %}

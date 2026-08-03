@@ -1,0 +1,44 @@
+<section class="ugc-gallery page-width">
+  <h2 class="section-heading">{{ section.settings.heading }}</h2>
+  <div class="ugc-gallery__row">
+    {%- for block in section.blocks -%}
+      <a href="{{ block.settings.link }}" class="ugc-card" {{ block.shopify_attributes }}>
+        {%- if block.settings.image != blank -%}
+          <img src="{{ block.settings.image | image_url: width: 500 }}" alt="{{ block.settings.caption | escape }}" loading="lazy" width="500" height="{{ 500 | divided_by: block.settings.image.aspect_ratio }}">
+        {%- endif -%}
+        {%- if block.settings.caption != blank -%}<span class="ugc-card__caption">{{ block.settings.caption }}</span>{%- endif -%}
+      </a>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "UGC gallery",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Worn by real people" }
+  ],
+  "blocks": [
+    {
+      "type": "clip",
+      "name": "Clip",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo" },
+        { "type": "text", "id": "caption", "label": "Caption", "default": "Shop this look" },
+        { "type": "url", "id": "link", "label": "Product link" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "UGC gallery",
+      "blocks": [
+        { "type": "clip", "settings": {} },
+        { "type": "clip", "settings": {} },
+        { "type": "clip", "settings": {} },
+        { "type": "clip", "settings": {} }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -154,6 +154,26 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  /* ---------- Hero carousel ---------- */
+  document.querySelectorAll('[data-hero-carousel]').forEach(function (hero) {
+    var slides = hero.querySelectorAll('.hero__slide');
+    var dots = hero.querySelectorAll('[data-hero-dot]');
+    if (slides.length < 2) return;
+    var current = 0;
+
+    function show(index) {
+      slides.forEach(function (s, i) { s.classList.toggle('is-active', i === index); });
+      dots.forEach(function (d, i) { d.classList.toggle('is-active', i === index); });
+      current = index;
+    }
+
+    dots.forEach(function (dot) {
+      dot.addEventListener('click', function () { show(parseInt(dot.dataset.index, 10)); });
+    });
+
+    setInterval(function () { show((current + 1) % slides.length); }, 6000);
+  });
+
   /* ---------- Countdown banner ---------- */
   document.querySelectorAll('[data-countdown]').forEach(function (el) {
     var end = new Date(el.dataset.end).getTime();

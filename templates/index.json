@@ -2,15 +2,34 @@
   "sections": {
     "hero": {
       "type": "hero",
-      "settings": {
-        "eyebrow": "Jesus Based",
-        "heading": "Clothing for the Journey",
-        "subheading": "Hope. Healing. Freedom. For those walking in faith, covered by His grace.",
-        "button_label": "Shop New Arrivals",
-        "button_link": "",
-        "button_label_2": "Our Mission",
-        "button_link_2": ""
-      }
+      "settings": { "autoplay_speed": 6 },
+      "blocks": {
+        "slide-1": {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "Jesus Based",
+            "heading": "Clothing for the Journey",
+            "subheading": "Hope. Healing. Freedom. For those walking in faith, covered by His grace.",
+            "button_label": "Shop New Arrivals",
+            "button_link": "",
+            "button_label_2": "Our Mission",
+            "button_link_2": ""
+          }
+        },
+        "slide-2": {
+          "type": "slide",
+          "settings": {
+            "eyebrow": "Limited Drop",
+            "heading": "Faith Over Fear",
+            "subheading": "New arrivals inspired by scripture, made for everyday wear.",
+            "button_label": "Shop the Drop",
+            "button_link": "",
+            "button_label_2": "Find Your Piece",
+            "button_link_2": ""
+          }
+        }
+      },
+      "block_order": ["slide-1", "slide-2"]
     },
     "category-grid": {
       "type": "category-grid",
@@ -61,7 +80,37 @@
         "t3": { "type": "testimonial", "settings": {} }
       },
       "block_order": ["t1", "t2", "t3"]
+    },
+    "ugc": {
+      "type": "ugc-gallery",
+      "settings": { "heading": "Worn by real people" },
+      "blocks": {
+        "c1": { "type": "clip", "settings": {} },
+        "c2": { "type": "clip", "settings": {} },
+        "c3": { "type": "clip", "settings": {} },
+        "c4": { "type": "clip", "settings": {} }
+      },
+      "block_order": ["c1", "c2", "c3", "c4"]
+    },
+    "affiliate-banner": {
+      "type": "affiliate-banner",
+      "settings": {}
+    },
+    "quiz-teaser": {
+      "type": "quiz-teaser",
+      "settings": {}
+    },
+    "trust-row": {
+      "type": "trust-row",
+      "settings": {},
+      "blocks": {
+        "i1": { "type": "item", "settings": { "icon": "cart", "title": "Fast Shipping", "description": "Most orders ship within 2-3 business days." } },
+        "i2": { "type": "item", "settings": { "icon": "close", "title": "Easy Returns", "description": "30-day hassle-free returns." } },
+        "i3": { "type": "item", "settings": { "icon": "search", "title": "Built to Last", "description": "Premium fabric made for everyday wear." } },
+        "i4": { "type": "item", "settings": { "icon": "account", "title": "Purpose-Driven", "description": "Every order supports our mission." } }
+      },
+      "block_order": ["i1", "i2", "i3", "i4"]
     }
   },
-  "order": ["hero", "category-grid", "best-sellers", "brand-story", "premium-tees", "testimonials"]
+  "order": ["hero", "best-sellers", "ugc", "premium-tees", "category-grid", "brand-story", "affiliate-banner", "quiz-teaser", "trust-row", "testimonials"]
 }

@@ -1,0 +1,26 @@
+<section class="affiliate-banner">
+  <div class="page-width affiliate-banner__inner">
+    <div>
+      <p class="affiliate-banner__eyebrow">{{ section.settings.eyebrow }}</p>
+      <h2>{{ section.settings.heading }}</h2>
+      <p>{{ section.settings.subheading }}</p>
+    </div>
+    <a href="{{ section.settings.button_link }}" class="button button--primary">{{ section.settings.button_label }}</a>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Affiliate banner",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Join the Team" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Get paid to spread the message" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Partner with Shroud and earn commission sharing pieces you already believe in." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Become an Affiliate" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "presets": [
+    { "name": "Affiliate banner" }
+  ]
+}
+{% endschema %}
