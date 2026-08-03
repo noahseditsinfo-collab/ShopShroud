@@ -1,0 +1,67 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "eyebrow": "New season",
+        "heading": "Wear the story",
+        "subheading": "Small-batch streetwear built for everyday movement.",
+        "button_label": "Shop New Arrivals",
+        "button_link": "",
+        "button_label_2": "Find Your Piece",
+        "button_link_2": ""
+      }
+    },
+    "category-grid": {
+      "type": "category-grid",
+      "settings": {
+        "heading": "Shop by Category"
+      },
+      "blocks": {
+        "hoodies": { "type": "category", "settings": { "title": "Hoodies" } },
+        "tees": { "type": "category", "settings": { "title": "Tees" } },
+        "hats": { "type": "category", "settings": { "title": "Hats" } },
+        "zips": { "type": "category", "settings": { "title": "Zip-Ups" } }
+      },
+      "block_order": ["hoodies", "tees", "hats", "zips"]
+    },
+    "best-sellers": {
+      "type": "featured-collection",
+      "settings": {
+        "heading": "Best Sellers",
+        "products_to_show": 8
+      }
+    },
+    "brand-story": {
+      "type": "brand-story",
+      "settings": {
+        "layout": "left",
+        "eyebrow": "Our Story",
+        "heading": "Built by people who wear it",
+        "body": "<p>We started ShopShroud to make clothing that holds up to real life — made in small batches, tested by our own community, and priced fairly.</p>",
+        "button_label": "Learn our story",
+        "button_link": ""
+      }
+    },
+    "premium-tees": {
+      "type": "featured-collection",
+      "settings": {
+        "heading": "Premium Tees",
+        "products_to_show": 4
+      }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "settings": {
+        "heading": "Worn by real people"
+      },
+      "blocks": {
+        "t1": { "type": "testimonial", "settings": {} },
+        "t2": { "type": "testimonial", "settings": {} },
+        "t3": { "type": "testimonial", "settings": {} }
+      },
+      "block_order": ["t1", "t2", "t3"]
+    }
+  },
+  "order": ["hero", "category-grid", "best-sellers", "brand-story", "premium-tees", "testimonials"]
+}

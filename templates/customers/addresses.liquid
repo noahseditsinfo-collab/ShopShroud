@@ -1,0 +1,29 @@
+<section class="customer-page page-width">
+  <h1>Addresses</h1>
+  <a href="{{ routes.account_url }}">Back to account</a>
+
+  {%- for address in customer.addresses -%}
+    <div class="customer-address">
+      {{ address | format_address }}
+      {%- form 'customer_address', address -%}
+        <button type="submit" name="_method" value="delete" onclick="return confirm('Delete this address?')">Delete</button>
+      {%- endform -%}
+    </div>
+  {%- endfor -%}
+
+  {% form 'customer_address', customer.new_address %}
+    <label for="AddressFirstName">First name</label>
+    <input type="text" id="AddressFirstName" name="address[first_name]">
+    <label for="AddressLastName">Last name</label>
+    <input type="text" id="AddressLastName" name="address[last_name]">
+    <label for="AddressAddress1">Address</label>
+    <input type="text" id="AddressAddress1" name="address[address1]">
+    <label for="AddressCity">City</label>
+    <input type="text" id="AddressCity" name="address[city]">
+    <label for="AddressZip">Postal/Zip code</label>
+    <input type="text" id="AddressZip" name="address[zip]">
+    <label for="AddressCountry">Country</label>
+    <input type="text" id="AddressCountry" name="address[country]">
+    <button type="submit" class="button button--primary">Add address</button>
+  {% endform %}
+</section>

@@ -1,0 +1,48 @@
+<section class="category-grid page-width">
+  {%- if section.settings.heading != blank -%}
+    <h2 class="section-heading">{{ section.settings.heading }}</h2>
+  {%- endif -%}
+  <div class="category-grid__items category-grid__items--{{ section.blocks.size }}">
+    {%- for block in section.blocks -%}
+      <a href="{{ block.settings.link }}" class="category-tile" {{ block.shopify_attributes }}>
+        <div class="category-tile__image">
+          {%- if block.settings.image != blank -%}
+            <img src="{{ block.settings.image | image_url: width: 600 }}" alt="{{ block.settings.title }}" loading="lazy" width="600" height="{{ 600 | divided_by: block.settings.image.aspect_ratio }}">
+          {%- endif -%}
+        </div>
+        <span class="category-tile__title">{{ block.settings.title }}</span>
+      </a>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Category grid",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Shop by Category" }
+  ],
+  "blocks": [
+    {
+      "type": "category",
+      "name": "Category",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Hoodies" },
+        { "type": "url", "id": "link", "label": "Link" }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "category", "settings": { "title": "Hoodies" } },
+      { "type": "category", "settings": { "title": "Tees" } },
+      { "type": "category", "settings": { "title": "Hats" } },
+      { "type": "category", "settings": { "title": "Zip-Ups" } }
+    ]
+  },
+  "presets": [
+    { "name": "Category grid" }
+  ]
+}
+{% endschema %}

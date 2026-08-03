@@ -1,0 +1,13 @@
+<section class="cart-page page-width">
+  <h1>Your Cart</h1>
+  {% form 'cart', cart, class: 'cart-page__form' %}
+    {% render 'cart-drawer-items' %}
+  {% endform %}
+</section>
+
+{% schema %}
+{
+  "name": "Cart page",
+  "settings": []
+}
+{% endschema %}

@@ -1,0 +1,102 @@
+<header class="site-header" data-header>
+  <div class="site-header__inner page-width">
+
+    <button class="site-header__mobile-toggle" data-mobile-menu-toggle aria-label="Menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+
+    <a href="{{ routes.root_url }}" class="site-header__logo">
+      {%- if section.settings.logo != blank -%}
+        <img src="{{ section.settings.logo | image_url: width: 320 }}"
+             alt="{{ shop.name }}"
+             width="{{ section.settings.logo_width }}"
+             loading="eager">
+      {%- else -%}
+        <span class="site-header__logo-text">{{ shop.name }}</span>
+      {%- endif -%}
+    </a>
+
+    <nav class="site-header__nav" data-nav>
+      <ul class="site-header__menu">
+        {%- for link in section.settings.menu.links -%}
+          <li class="site-header__menu-item{% if link.links != blank %} has-dropdown{% endif %}">
+            <a href="{{ link.url }}" {% if link.current %}aria-current="page"{% endif %}>{{ link.title }}</a>
+            {%- if link.links != blank -%}
+              <ul class="site-header__dropdown">
+                {%- for childlink in link.links -%}
+                  <li><a href="{{ childlink.url }}">{{ childlink.title }}</a></li>
+                {%- endfor -%}
+              </ul>
+            {%- endif -%}
+          </li>
+        {%- endfor -%}
+      </ul>
+    </nav>
+
+    <div class="site-header__icons">
+      <button class="site-header__icon-btn" data-search-toggle aria-label="Search">
+        {% render 'icon' with 'search' %}
+      </button>
+      <a href="{{ routes.account_url }}" class="site-header__icon-btn" aria-label="Account">
+        {% render 'icon' with 'account' %}
+      </a>
+      <button class="site-header__icon-btn site-header__cart-btn" data-cart-toggle aria-label="Cart">
+        {% render 'icon' with 'cart' %}
+        <span class="site-header__cart-count" data-cart-count>{{ cart.item_count }}</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="site-header__search" data-search-panel aria-hidden="true">
+    <form action="{{ routes.search_url }}" method="get" class="site-header__search-form page-width">
+      <input type="search" name="q" placeholder="Search products" value="{{ search.terms | escape }}">
+      <button type="submit">{% render 'icon' with 'search' %}</button>
+    </form>
+  </div>
+
+  <div class="site-header__mobile-menu" data-mobile-menu aria-hidden="true">
+    <ul>
+      {%- for link in section.settings.menu.links -%}
+        <li class="{% if link.links != blank %}has-dropdown{% endif %}">
+          <a href="{{ link.url }}">{{ link.title }}</a>
+          {%- if link.links != blank -%}
+            <ul>
+              {%- for childlink in link.links -%}
+                <li><a href="{{ childlink.url }}">{{ childlink.title }}</a></li>
+              {%- endfor -%}
+            </ul>
+          {%- endif -%}
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+</header>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "range",
+      "id": "logo_width",
+      "label": "Logo width",
+      "min": 80,
+      "max": 300,
+      "step": 10,
+      "unit": "px",
+      "default": 160
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Menu",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,13 @@
+{
+  "type": "footer-group",
+  "name": "Footer",
+  "sections": {
+    "newsletter": {
+      "type": "newsletter"
+    },
+    "footer": {
+      "type": "footer"
+    }
+  },
+  "order": ["newsletter", "footer"]
+}

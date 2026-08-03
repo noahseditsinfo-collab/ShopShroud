@@ -1,0 +1,21 @@
+<section class="customer-page page-width">
+  <h1>Create Account</h1>
+  {% form 'create_customer' %}
+    {%- if form.errors -%}
+      <div class="form-errors">{{ form.errors | default_errors }}</div>
+    {%- endif -%}
+    <label for="FirstName">First name</label>
+    <input type="text" name="customer[first_name]" id="FirstName">
+
+    <label for="LastName">Last name</label>
+    <input type="text" name="customer[last_name]" id="LastName">
+
+    <label for="Email">Email</label>
+    <input type="email" name="customer[email]" id="Email" required>
+
+    <label for="Password">Password</label>
+    <input type="password" name="customer[password]" id="Password" required>
+
+    <button type="submit" class="button button--primary">Create account</button>
+  {% endform %}
+</section>

@@ -1,0 +1,49 @@
+<section class="newsletter">
+  <div class="page-width newsletter__inner">
+    <h2 class="newsletter__heading">{{ section.settings.heading }}</h2>
+    <p class="newsletter__subheading">{{ section.settings.subheading }}</p>
+    {% form 'customer', class: 'newsletter__form' %}
+      {%- if form.posted_successfully? -%}
+        <p class="newsletter__success">Thanks for joining — check your inbox to confirm.</p>
+      {%- else -%}
+        <input type="hidden" name="contact[tags]" value="newsletter">
+        <div class="newsletter__field">
+          <input type="email" name="contact[email]" placeholder="Your email address" required>
+          <button type="submit">{{ section.settings.button_label }}</button>
+        </div>
+        {%- if form.errors -%}
+          <p class="newsletter__error">Please enter a valid email address.</p>
+        {%- endif -%}
+      {%- endif -%}
+    {% endform %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Newsletter",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Join the movement"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Sign up for early access to drops, restocks, and exclusive discounts."
+    },
+    {
+      "type": "text",
+      "id": "button_label",
+      "label": "Button label",
+      "default": "Sign up"
+    }
+  ],
+  "presets": [
+    { "name": "Newsletter" }
+  ]
+}
+{% endschema %}

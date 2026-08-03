@@ -1,0 +1,18 @@
+{
+  "current": {
+    "color_background": "#F6F1E7",
+    "color_background_secondary": "#EBE1CE",
+    "color_text": "#2B2620",
+    "color_accent": "#7C6A4D",
+    "color_accent_secondary": "#A6472F",
+    "color_border": "#D9CDB4",
+    "font_heading": "archivo_black_n4",
+    "font_body": "work_sans_n4",
+    "page_width": 1280,
+    "social_instagram": "",
+    "social_tiktok": "",
+    "social_facebook": "",
+    "social_youtube": ""
+  },
+  "presets": {}
+}

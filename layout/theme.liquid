@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="{{ settings.color_background }}">
+  <title>
+    {{ page_title }}{% if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif %}{% if current_page != 1 %} &ndash; Page {{ current_page }}{% endif %}{% unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless %}
+  </title>
+
+  {% if page_description %}
+    <meta name="description" content="{{ page_description | escape }}">
+  {% endif %}
+
+  <link rel="canonical" href="{{ canonical_url }}">
+  <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+
+  {{ content_for_header }}
+
+  {%- style -%}
+    :root{
+      --color-bg: {{ settings.color_background }};
+      --color-bg-secondary: {{ settings.color_background_secondary }};
+      --color-text: {{ settings.color_text }};
+      --color-accent: {{ settings.color_accent }};
+      --color-accent-secondary: {{ settings.color_accent_secondary }};
+      --color-border: {{ settings.color_border }};
+      --font-heading: {{ settings.font_heading.family }}, {{ settings.font_heading.fallback_families }};
+      --font-heading-weight: {{ settings.font_heading.weight }};
+      --font-body: {{ settings.font_body.family }}, {{ settings.font_body.fallback_families }};
+      --font-body-weight: {{ settings.font_body.weight }};
+      --page-width: {{ settings.page_width }}px;
+    }
+  {%- endstyle -%}
+
+  {{ settings.font_heading | font_face: font_display: 'swap' }}
+  {{ settings.font_body | font_face: font_display: 'swap' }}
+
+  {{ 'theme.css' | asset_url | stylesheet_tag }}
+
+  <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+
+  {%- if settings.favicon != blank -%}
+    <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+  {%- endif -%}
+</head>
+<body class="template-{{ request.page_type }}">
+
+  <a class="skip-to-content visually-hidden" href="#MainContent">Skip to content</a>
+
+  {% sections 'header-group' %}
+
+  <main id="MainContent" class="content-for-layout">
+    {{ content_for_layout }}
+  </main>
+
+  {% sections 'footer-group' %}
+
+  <div id="cart-drawer" class="cart-drawer" aria-hidden="true">
+    <div class="cart-drawer__overlay" data-cart-close></div>
+    <div class="cart-drawer__panel">
+      {% section 'cart-drawer' %}
+    </div>
+  </div>
+
+</body>
+</html>

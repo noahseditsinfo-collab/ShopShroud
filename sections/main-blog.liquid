@@ -1,0 +1,30 @@
+<section class="blog page-width">
+  <h1 class="blog__title">{{ blog.title }}</h1>
+  <div class="blog__grid">
+    {%- paginate blog.articles by 12 -%}
+      {%- for article in blog.articles -%}
+        <a href="{{ article.url }}" class="blog-card">
+          {%- if article.image -%}
+            <img src="{{ article.image | image_url: width: 600 }}" alt="{{ article.image.alt | escape }}" loading="lazy" width="600" height="{{ 600 | divided_by: article.image.aspect_ratio }}">
+          {%- endif -%}
+          <h2>{{ article.title }}</h2>
+          <p>{{ article.published_at | date: '%B %d, %Y' }}</p>
+        </a>
+      {%- endfor -%}
+
+      {%- if paginate.pages > 1 -%}
+        <nav class="blog__pagination">
+          {%- if paginate.previous -%}<a href="{{ paginate.previous.url }}">&larr; Previous</a>{%- endif -%}
+          {%- if paginate.next -%}<a href="{{ paginate.next.url }}">Next &rarr;</a>{%- endif -%}
+        </nav>
+      {%- endif -%}
+    {%- endpaginate -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Blog pages",
+  "settings": []
+}
+{% endschema %}

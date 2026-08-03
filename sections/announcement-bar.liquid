@@ -1,0 +1,62 @@
+<div class="announcement-bar" {% if section.settings.autoplay %}data-autoplay="{{ section.settings.autoplay_speed | times: 1000 }}"{% endif %}>
+  <div class="announcement-bar__track">
+    {%- for block in section.blocks -%}
+      <div class="announcement-bar__item" {{ block.shopify_attributes }}>
+        {%- if block.settings.link != blank -%}<a href="{{ block.settings.link }}">{%- endif -%}
+        {{ block.settings.text }}
+        {%- if block.settings.link != blank -%}</a>{%- endif -%}
+      </div>
+    {%- endfor -%}
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Announcement bar",
+  "class": "shopify-section--announcement-bar",
+  "settings": [
+    {
+      "type": "checkbox",
+      "id": "autoplay",
+      "label": "Auto-rotate messages",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "autoplay_speed",
+      "label": "Rotate every",
+      "min": 3,
+      "max": 10,
+      "step": 1,
+      "unit": "s",
+      "default": 5
+    }
+  ],
+  "blocks": [
+    {
+      "type": "message",
+      "name": "Message",
+      "settings": [
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Text",
+          "default": "Free shipping on orders over $75"
+        },
+        {
+          "type": "url",
+          "id": "link",
+          "label": "Link (optional)"
+        }
+      ]
+    }
+  ],
+  "default": {
+    "blocks": [
+      { "type": "message", "settings": { "text": "Free shipping on orders over $75" } },
+      { "type": "message", "settings": { "text": "Ships same day when ordered before 2pm" } },
+      { "type": "message", "settings": { "text": "Join the movement — sign up for rewards" } }
+    ]
+  }
+}
+{% endschema %}

@@ -1,0 +1,64 @@
+{
+  "general": {
+    "search": {
+      "placeholder": "Search products",
+      "no_results": "No results found for \"{{ terms }}\""
+    },
+    "404": {
+      "title": "Page not found",
+      "subtext": "The page you're looking for doesn't exist.",
+      "link": "Back to homepage"
+    }
+  },
+  "products": {
+    "product": {
+      "sold_out": "Sold Out",
+      "add_to_cart": "Add to Cart",
+      "quantity": "Quantity",
+      "view_all": "View all"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Your Cart",
+      "empty": "Your cart is empty",
+      "continue_shopping": "Continue shopping",
+      "subtotal": "Subtotal",
+      "checkout": "Checkout",
+      "view_cart": "View Cart",
+      "note": "Shipping and taxes calculated at checkout."
+    }
+  },
+  "customer": {
+    "login": {
+      "title": "Login",
+      "email": "Email",
+      "password": "Password",
+      "sign_in": "Sign in",
+      "forgot_password": "Forgot password?",
+      "create_account": "Create account"
+    },
+    "register": {
+      "title": "Create Account",
+      "first_name": "First name",
+      "last_name": "Last name",
+      "submit": "Create account"
+    },
+    "account": {
+      "title": "My Account",
+      "logout": "Log out",
+      "order_history": "Order History",
+      "no_orders": "You haven't placed any orders yet."
+    },
+    "addresses": {
+      "title": "Addresses",
+      "add_new": "Add address",
+      "delete": "Delete"
+    }
+  },
+  "newsletter": {
+    "heading": "Join the movement",
+    "success": "Thanks for joining — check your inbox to confirm.",
+    "error": "Please enter a valid email address."
+  }
+}

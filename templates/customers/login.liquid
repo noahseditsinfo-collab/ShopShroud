@@ -1,0 +1,21 @@
+<section class="customer-page page-width">
+  <h1>Login</h1>
+  {% form 'customer_login' %}
+    {%- if form.errors -%}
+      <div class="form-errors">{{ form.errors | default_errors }}</div>
+    {%- endif -%}
+    <label for="CustomerEmail">Email</label>
+    <input type="email" name="customer[email]" id="CustomerEmail" required>
+
+    {%- if form.password_needed -%}
+      <label for="CustomerPassword">Password</label>
+      <input type="password" name="customer[password]" id="CustomerPassword" required>
+    {%- endif -%}
+
+    <button type="submit" class="button button--primary">Sign in</button>
+    <a href="{{ routes.account_register_url }}">Create account</a>
+    {%- if form.password_needed -%}
+      <a href="#" data-recover-password>Forgot password?</a>
+    {%- endif -%}
+  {% endform %}
+</section>

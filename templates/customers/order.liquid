@@ -1,0 +1,23 @@
+<section class="customer-page page-width">
+  <h1>Order {{ order.name }}</h1>
+  <p>Placed on {{ order.created_at | date: '%B %d, %Y' }}</p>
+
+  <table class="order-line-items">
+    <thead>
+      <tr><th>Product</th><th>Price</th><th>Qty</th><th>Total</th></tr>
+    </thead>
+    <tbody>
+      {%- for line_item in order.line_items -%}
+        <tr>
+          <td>{{ line_item.title }}</td>
+          <td>{{ line_item.price | money }}</td>
+          <td>{{ line_item.quantity }}</td>
+          <td>{{ line_item.final_line_price | money }}</td>
+        </tr>
+      {%- endfor -%}
+    </tbody>
+  </table>
+
+  <p><strong>Total: {{ order.total_price | money }}</strong></p>
+  <a href="{{ routes.account_url }}">Back to account</a>
+</section>

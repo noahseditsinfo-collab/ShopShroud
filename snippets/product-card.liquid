@@ -1,0 +1,32 @@
+{%- comment -%} Accepts: product {%- endcomment -%}
+<div class="product-card">
+  <a href="{{ product.url }}" class="product-card__image-link">
+    {%- if product.featured_image != blank -%}
+      <img
+        class="product-card__image product-card__image--primary"
+        src="{{ product.featured_image | image_url: width: 600 }}"
+        srcset="{{ product.featured_image | image_url: width: 400 }} 400w, {{ product.featured_image | image_url: width: 600 }} 600w, {{ product.featured_image | image_url: width: 800 }} 800w"
+        sizes="(min-width: 990px) 25vw, 50vw"
+        alt="{{ product.featured_image.alt | escape }}"
+        loading="lazy"
+        width="600" height="{{ 600 | divided_by: product.featured_image.aspect_ratio }}">
+      {%- if product.images[1] -%}
+        <img
+          class="product-card__image product-card__image--hover"
+          src="{{ product.images[1] | image_url: width: 600 }}"
+          alt=""
+          loading="lazy"
+          width="600" height="{{ 600 | divided_by: product.images[1].aspect_ratio }}">
+      {%- endif -%}
+    {%- else -%}
+      <div class="product-card__placeholder"></div>
+    {%- endif -%}
+    {%- if product.compare_at_price > product.price -%}
+      <span class="product-card__badge">Sale</span>
+    {%- endif -%}
+  </a>
+  <div class="product-card__info">
+    <a href="{{ product.url }}" class="product-card__title">{{ product.title }}</a>
+    {% render 'price', product: product %}
+  </div>
+</div>

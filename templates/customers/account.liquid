@@ -1,0 +1,30 @@
+<section class="customer-page page-width">
+  <h1>My Account</h1>
+  <p>Welcome, {{ customer.first_name }}.</p>
+  <a href="{{ routes.account_logout_url }}">Log out</a>
+
+  <h2>Order History</h2>
+  {%- if customer.orders.size > 0 -%}
+    <table class="customer-orders">
+      <thead>
+        <tr><th>Order</th><th>Date</th><th>Payment</th><th>Fulfillment</th><th>Total</th></tr>
+      </thead>
+      <tbody>
+        {%- for order in customer.orders -%}
+          <tr>
+            <td><a href="{{ order.customer_url }}">{{ order.name }}</a></td>
+            <td>{{ order.created_at | date: '%B %d, %Y' }}</td>
+            <td>{{ order.financial_status_label }}</td>
+            <td>{{ order.fulfillment_status_label }}</td>
+            <td>{{ order.total_price | money }}</td>
+          </tr>
+        {%- endfor -%}
+      </tbody>
+    </table>
+  {%- else -%}
+    <p>You haven't placed any orders yet.</p>
+  {%- endif -%}
+
+  <h2>Addresses</h2>
+  <a href="{{ routes.account_addresses_url }}">Manage addresses</a>
+</section>

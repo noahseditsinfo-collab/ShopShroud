@@ -1,0 +1,20 @@
+<section class="collections-list page-width">
+  <h1>{{ page_title }}</h1>
+  <div class="collections-list__grid">
+    {%- for collection in collections -%}
+      <a href="{{ collection.url }}" class="collections-list__item">
+        {%- if collection.image -%}
+          <img src="{{ collection.image | image_url: width: 600 }}" alt="{{ collection.title }}" loading="lazy" width="600" height="{{ 600 | divided_by: collection.image.aspect_ratio }}">
+        {%- endif -%}
+        <span>{{ collection.title }}</span>
+      </a>
+    {%- endfor -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "List collections",
+  "settings": []
+}
+{% endschema %}

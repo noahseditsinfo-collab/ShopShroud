@@ -1,0 +1,68 @@
+<section class="product page-width">
+  <div class="product__gallery">
+    {%- if product.media.size > 0 -%}
+      <div class="product__main-image">
+        <img id="ProductMainImage" src="{{ product.selected_or_first_available_variant.image | default: product.featured_image | image_url: width: 900 }}"
+             alt="{{ product.featured_image.alt | escape }}" width="900" height="{{ 900 | divided_by: product.featured_image.aspect_ratio }}">
+      </div>
+      {%- if product.media.size > 1 -%}
+        <div class="product__thumbnails">
+          {%- for media in product.media -%}
+            <button class="product__thumbnail" data-thumb data-image-url="{{ media.preview_image | image_url: width: 900 }}">
+              <img src="{{ media.preview_image | image_url: width: 150 }}" alt="{{ media.alt | escape }}" width="150" height="{{ 150 | divided_by: media.preview_image.aspect_ratio }}">
+            </button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    {%- endif -%}
+  </div>
+
+  <div class="product__info">
+    <h1 class="product__title">{{ product.title }}</h1>
+    <div id="ProductPrice">{% render 'price', product: product %}</div>
+
+    <script type="application/json" id="ProductVariantsJson">{{ product.variants | json }}</script>
+    <script>window.themeMoneyFormat = {{ shop.money_format | json }};</script>
+
+    {% form 'product', product, id: 'product-form', class: 'product-form' %}
+      {%- unless product.has_only_default_variant -%}
+        {%- for option in product.options_with_values -%}
+          <div class="product-form__option">
+            <label>{{ option.name }}</label>
+            <div class="product-form__swatches" data-option-index="{{ forloop.index0 }}">
+              {%- for value in option.values -%}
+                <button type="button" class="product-form__swatch{% if value == product.selected_or_first_available_variant.options[forloop.parentloop.index0] %} is-selected{% endif %}" data-option-value="{{ value | escape }}">{{ value }}</button>
+              {%- endfor -%}
+            </div>
+          </div>
+        {%- endfor -%}
+      {%- endunless -%}
+
+      <select name="id" class="product-form__variant-select" data-variant-select {% unless product.has_only_default_variant %}hidden{% endunless %}>
+        {%- for variant in product.variants -%}
+          <option value="{{ variant.id }}" {% unless variant.available %}disabled{% endunless %} {% if variant == product.selected_or_first_available_variant %}selected{% endif %}>
+            {{ variant.title }}{% unless variant.available %} - Sold out{% endunless %}
+          </option>
+        {%- endfor -%}
+      </select>
+
+      <div class="product-form__quantity">
+        <label for="Quantity">Qty</label>
+        <input type="number" id="Quantity" name="quantity" value="1" min="1">
+      </div>
+
+      <button type="submit" id="AddToCartButton" class="button button--primary product-form__submit" {% unless product.selected_or_first_available_variant.available %}disabled{% endunless %}>
+        <span id="AddToCartText">{%- if product.selected_or_first_available_variant.available -%}Add to Cart{%- else -%}Sold Out{%- endif -%}</span>
+      </button>
+    {% endform %}
+
+    <div class="product__description">{{ product.description }}</div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Product information",
+  "settings": []
+}
+{% endschema %}
