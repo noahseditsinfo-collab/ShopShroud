@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "wholesale-content",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

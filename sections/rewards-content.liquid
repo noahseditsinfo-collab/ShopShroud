@@ -1,0 +1,49 @@
+<section class="program-page">
+  <h1>{{ section.settings.heading }}</h1>
+  <p>{{ section.settings.subheading }}</p>
+
+  <div class="program-page__tiers">
+    {%- for block in section.blocks -%}
+      <div class="program-page__tier" {{ block.shopify_attributes }}>
+        <h3>{{ block.settings.title }}</h3>
+        <p>{{ block.settings.description }}</p>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  {%- if section.settings.button_label != blank -%}
+    <a href="{{ section.settings.button_link }}" class="button button--primary">{{ section.settings.button_label }}</a>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Rewards content",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "ShopShroud Rewards" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Earn points on every order and unlock perks as you go." },
+    { "type": "text", "id": "button_label", "label": "Button label", "default": "Join Rewards" },
+    { "type": "url", "id": "button_link", "label": "Button link" }
+  ],
+  "blocks": [
+    {
+      "type": "tier",
+      "name": "Tier",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Tier name", "default": "1 point per $1" },
+        { "type": "textarea", "id": "description", "label": "Description", "default": "Earn a point for every dollar spent, redeemable toward future orders." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Rewards content",
+      "blocks": [
+        { "type": "tier", "settings": { "title": "Earn points", "description": "Get 1 point for every $1 spent on orders." } },
+        { "type": "tier", "settings": { "title": "Redeem rewards", "description": "Trade points in for discounts on future purchases." } },
+        { "type": "tier", "settings": { "title": "Member perks", "description": "Early access to drops and birthday rewards." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,9 @@
+{
+  "sections": {
+    "main": {
+      "type": "rewards-content",
+      "settings": {}
+    }
+  },
+  "order": ["main"]
+}

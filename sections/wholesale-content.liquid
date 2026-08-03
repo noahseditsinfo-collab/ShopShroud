@@ -1,0 +1,30 @@
+<section class="program-page">
+  <h1>{{ section.settings.heading }}</h1>
+  <p>{{ section.settings.subheading }}</p>
+
+  {% form 'contact', id: 'WholesaleForm', class: 'program-page__form' %}
+    {%- if form.posted_successfully? -%}
+      <p>Thanks for reaching out — our wholesale team will follow up shortly.</p>
+    {%- else -%}
+      <input type="hidden" name="contact[tags]" value="wholesale-inquiry">
+      <input type="text" name="contact[name]" placeholder="Contact name" required>
+      <input type="text" name="contact[business]" placeholder="Business name" required>
+      <input type="email" name="contact[email]" placeholder="Email address" required>
+      <textarea name="contact[body]" rows="4" placeholder="Tell us about your store and order volume"></textarea>
+      <button type="submit" class="button button--primary">Submit Inquiry</button>
+    {%- endif -%}
+  {% endform %}
+</section>
+
+{% schema %}
+{
+  "name": "Wholesale content",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Wholesale" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Bring ShopShroud into your store. Fill out the form below and our team will follow up with pricing and minimums." }
+  ],
+  "presets": [
+    { "name": "Wholesale content" }
+  ]
+}
+{% endschema %}

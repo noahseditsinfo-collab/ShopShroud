@@ -1,0 +1,56 @@
+<section class="program-page">
+  <h1>{{ section.settings.heading }}</h1>
+  <p>{{ section.settings.subheading }}</p>
+
+  <div class="program-page__tiers">
+    {%- for block in section.blocks -%}
+      <div class="program-page__tier" {{ block.shopify_attributes }}>
+        <h3>{{ block.settings.title }}</h3>
+        <p>{{ block.settings.description }}</p>
+      </div>
+    {%- endfor -%}
+  </div>
+
+  {% form 'contact', id: 'AffiliateForm', class: 'program-page__form' %}
+    {%- if form.posted_successfully? -%}
+      <p>Thanks for applying — we'll be in touch soon.</p>
+    {%- else -%}
+      <input type="hidden" name="contact[tags]" value="affiliate-application">
+      <input type="text" name="contact[name]" placeholder="Full name" required>
+      <input type="email" name="contact[email]" placeholder="Email address" required>
+      <input type="text" name="contact[instagram]" placeholder="Instagram / TikTok handle">
+      <textarea name="contact[body]" rows="4" placeholder="Tell us about your audience"></textarea>
+      <button type="submit" class="button button--primary">Apply Now</button>
+    {%- endif -%}
+  {% endform %}
+</section>
+
+{% schema %}
+{
+  "name": "Affiliate content",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "ShopShroud Affiliates" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Partner with us and earn commission sharing pieces you already wear." }
+  ],
+  "blocks": [
+    {
+      "type": "benefit",
+      "name": "Benefit",
+      "settings": [
+        { "type": "text", "id": "title", "label": "Title", "default": "Earn commission" },
+        { "type": "textarea", "id": "description", "label": "Description", "default": "Get a cut of every sale from your unique link." }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Affiliate content",
+      "blocks": [
+        { "type": "benefit", "settings": { "title": "Earn commission", "description": "Get paid on every sale generated through your link." } },
+        { "type": "benefit", "settings": { "title": "Free product", "description": "Approved affiliates get early access to new drops." } },
+        { "type": "benefit", "settings": { "title": "No minimums", "description": "Open to creators of any size — quality over follower count." } }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -154,6 +154,79 @@ document.addEventListener('DOMContentLoaded', function () {
     });
   });
 
+  /* ---------- Countdown banner ---------- */
+  document.querySelectorAll('[data-countdown]').forEach(function (el) {
+    var end = new Date(el.dataset.end).getTime();
+    if (isNaN(end)) return;
+    var daysEl = el.querySelector('[data-days]');
+    var hoursEl = el.querySelector('[data-hours]');
+    var minutesEl = el.querySelector('[data-minutes]');
+    var secondsEl = el.querySelector('[data-seconds]');
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function tick() {
+      var diff = end - Date.now();
+      if (diff <= 0) {
+        daysEl.textContent = hoursEl.textContent = minutesEl.textContent = secondsEl.textContent = '00';
+        return;
+      }
+      var days = Math.floor(diff / 86400000);
+      var hours = Math.floor((diff % 86400000) / 3600000);
+      var minutes = Math.floor((diff % 3600000) / 60000);
+      var seconds = Math.floor((diff % 60000) / 1000);
+      daysEl.textContent = pad(days);
+      hoursEl.textContent = pad(hours);
+      minutesEl.textContent = pad(minutes);
+      secondsEl.textContent = pad(seconds);
+    }
+
+    tick();
+    setInterval(tick, 1000);
+  });
+
+  /* ---------- FAQ accordion ---------- */
+  document.querySelectorAll('.faq-item__question').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      btn.closest('.faq-item').classList.toggle('is-open');
+    });
+  });
+
+  /* ---------- Style finder quiz ---------- */
+  document.querySelectorAll('[data-style-finder]').forEach(function (quiz) {
+    var steps = quiz.querySelectorAll('.style-finder__step');
+    var results = quiz.querySelectorAll('.style-finder__result');
+    var currentStep = 0;
+    var answers = {};
+
+    function showStep(index) {
+      steps.forEach(function (s, i) { s.classList.toggle('is-active', i === index); });
+    }
+
+    quiz.querySelectorAll('.style-finder__option').forEach(function (opt) {
+      opt.addEventListener('click', function () {
+        var step = opt.closest('.style-finder__step');
+        step.querySelectorAll('.style-finder__option').forEach(function (o) { o.classList.remove('is-selected'); });
+        opt.classList.add('is-selected');
+        answers[step.dataset.step] = opt.dataset.value;
+
+        currentStep++;
+        if (currentStep < steps.length) {
+          showStep(currentStep);
+        } else {
+          var resultKey = Object.values(answers).join('-');
+          var matched = quiz.querySelector('.style-finder__result[data-result="' + resultKey + '"]') || quiz.querySelector('.style-finder__result[data-result="default"]');
+          results.forEach(function (r) { r.classList.remove('is-active'); });
+          if (matched) matched.classList.add('is-active');
+          quiz.querySelector('.style-finder__quiz').style.display = 'none';
+          quiz.querySelector('.style-finder__results-wrap').style.display = 'block';
+        }
+      });
+    });
+
+    if (steps.length) showStep(0);
+  });
+
   /* ---------- Variant swatches ---------- */
   var variantsJsonEl = document.getElementById('ProductVariantsJson');
   if (variantsJsonEl) {

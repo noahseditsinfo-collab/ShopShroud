@@ -1,0 +1,62 @@
+<section class="style-finder" data-style-finder>
+  <h1>{{ section.settings.heading }}</h1>
+  <p>{{ section.settings.subheading }}</p>
+
+  <div class="style-finder__quiz">
+    <p class="style-finder__progress">Question <span data-progress>1</span> of 2</p>
+
+    <div class="style-finder__step is-active" data-step="fit">
+      <h2>{{ section.settings.question_1 }}</h2>
+      <div class="style-finder__options">
+        <button type="button" class="style-finder__option" data-value="relaxed">{{ section.settings.q1_option_1 }}</button>
+        <button type="button" class="style-finder__option" data-value="fitted">{{ section.settings.q1_option_2 }}</button>
+      </div>
+    </div>
+
+    <div class="style-finder__step" data-step="occasion">
+      <h2>{{ section.settings.question_2 }}</h2>
+      <div class="style-finder__options">
+        <button type="button" class="style-finder__option" data-value="everyday">{{ section.settings.q2_option_1 }}</button>
+        <button type="button" class="style-finder__option" data-value="layering">{{ section.settings.q2_option_2 }}</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="style-finder__results-wrap" style="display: none;">
+    <div class="style-finder__result" data-result="relaxed-everyday">
+      <h2>{{ section.settings.result_1_heading }}</h2>
+      <p>{{ section.settings.result_1_body }}</p>
+      <a href="{{ section.settings.result_1_link }}" class="button button--primary">Shop this fit</a>
+    </div>
+    <div class="style-finder__result" data-result="default">
+      <h2>{{ section.settings.result_default_heading }}</h2>
+      <p>{{ section.settings.result_default_body }}</p>
+      <a href="{{ section.settings.result_default_link }}" class="button button--primary">Shop all</a>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Style finder",
+  "settings": [
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Find Your Fit" },
+    { "type": "textarea", "id": "subheading", "label": "Subheading", "default": "Answer two quick questions and we'll point you to the right pieces." },
+    { "type": "text", "id": "question_1", "label": "Question 1", "default": "How do you like your fit?" },
+    { "type": "text", "id": "q1_option_1", "label": "Question 1, option 1", "default": "Relaxed" },
+    { "type": "text", "id": "q1_option_2", "label": "Question 1, option 2", "default": "Fitted" },
+    { "type": "text", "id": "question_2", "label": "Question 2", "default": "What are you shopping for?" },
+    { "type": "text", "id": "q2_option_1", "label": "Question 2, option 1", "default": "Everyday wear" },
+    { "type": "text", "id": "q2_option_2", "label": "Question 2, option 2", "default": "Layering pieces" },
+    { "type": "text", "id": "result_1_heading", "label": "Result: Relaxed + Everyday heading", "default": "Sounds like Everyday Essentials" },
+    { "type": "textarea", "id": "result_1_body", "label": "Result 1 body", "default": "Our relaxed tees and hoodies are built for daily rotation." },
+    { "type": "url", "id": "result_1_link", "label": "Result 1 link" },
+    { "type": "text", "id": "result_default_heading", "label": "Default result heading", "default": "Here's a good place to start" },
+    { "type": "textarea", "id": "result_default_body", "label": "Default result body", "default": "Browse the full collection to find your fit." },
+    { "type": "url", "id": "result_default_link", "label": "Default result link" }
+  ],
+  "presets": [
+    { "name": "Style finder" }
+  ]
+}
+{% endschema %}
