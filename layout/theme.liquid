@@ -33,8 +33,10 @@
     }
   {%- endstyle -%}
 
-  {{ settings.font_heading | font_face: font_display: 'swap' }}
-  {{ settings.font_body | font_face: font_display: 'swap' }}
+  {%- style -%}
+    {{ settings.font_heading | font_face: font_display: 'swap' }}
+    {{ settings.font_body | font_face: font_display: 'swap' }}
+  {%- endstyle -%}
 
   {{ 'theme.css' | asset_url | stylesheet_tag }}
 
