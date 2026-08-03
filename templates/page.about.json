@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "main": {
+      "type": "about-content",
+      "settings": {},
+      "blocks": {
+        "s1": { "type": "stat", "settings": { "number": "1,000+", "label": "Customers served" } },
+        "s2": { "type": "stat", "settings": { "number": "500+", "label": "5-star reviews" } },
+        "s3": { "type": "stat", "settings": { "number": "10%", "label": "Of profits donated" } },
+        "m1": { "type": "team_member", "settings": { "name": "Founder", "role": "Founder & CEO" } },
+        "m2": { "type": "team_member", "settings": { "name": "Team Member", "role": "Operations" } }
+      },
+      "block_order": ["s1", "s2", "s3", "m1", "m2"]
+    }
+  },
+  "order": ["main"]
+}

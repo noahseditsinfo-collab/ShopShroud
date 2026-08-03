@@ -1,0 +1,92 @@
+<section class="about-page">
+  <div class="about-page__hero">
+    <p class="about-page__eyebrow">{{ section.settings.eyebrow }}</p>
+    <h1>{{ section.settings.heading }}</h1>
+    <p class="about-page__mission">{{ section.settings.mission_statement }}</p>
+  </div>
+
+  <div class="about-page__stats">
+    {%- for block in section.blocks -%}
+      {%- if block.type == 'stat' -%}
+        <div class="about-page__stat" {{ block.shopify_attributes }}>
+          <strong>{{ block.settings.number }}</strong>
+          <span>{{ block.settings.label }}</span>
+        </div>
+      {%- endif -%}
+    {%- endfor -%}
+  </div>
+
+  <div class="about-page__story">
+    <h2>{{ section.settings.story_heading }}</h2>
+    <div class="rte">{{ section.settings.story_body }}</div>
+  </div>
+
+  <div class="about-page__team">
+    <h2>{{ section.settings.team_heading }}</h2>
+    <div class="about-page__team-row">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'team_member' -%}
+          <div class="meet-team__member" {{ block.shopify_attributes }}>
+            {%- if block.settings.image != blank -%}
+              <img src="{{ block.settings.image | image_url: width: 200 }}" alt="{{ block.settings.name | escape }}" loading="lazy" width="100" height="100">
+            {%- endif -%}
+            <h3>{{ block.settings.name }}</h3>
+            <p>{{ block.settings.role }}</p>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <div class="about-page__giving">
+    <h2>{{ section.settings.giving_heading }}</h2>
+    <p>{{ section.settings.giving_body }}</p>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "About content",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Jesus Based" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Clothing for the Journey" },
+    { "type": "textarea", "id": "mission_statement", "label": "Mission statement", "default": "Shroud exists to remind every person in recovery that you are not alone. You are seen. You are loved. And there is a purpose for your life." },
+    { "type": "text", "id": "story_heading", "label": "Story heading", "default": "Why we started Shroud" },
+    { "type": "richtext", "id": "story_body", "label": "Story body", "default": "<p>Shroud started as a simple idea: clothing that carries a message worth sharing. Every design is rooted in scripture and made for people walking through recovery, faith, and everyday life.</p>" },
+    { "type": "text", "id": "team_heading", "label": "Team heading", "default": "Meet the Team" },
+    { "type": "text", "id": "giving_heading", "label": "Giving section heading", "default": "Purpose Over Profit" },
+    { "type": "textarea", "id": "giving_body", "label": "Giving section body", "default": "A portion of every order supports mental health and recovery ministries. When you wear Shroud, you're part of that mission." }
+  ],
+  "blocks": [
+    {
+      "type": "stat",
+      "name": "Stat",
+      "settings": [
+        { "type": "text", "id": "number", "label": "Number", "default": "1,000+" },
+        { "type": "text", "id": "label", "label": "Label", "default": "Customers served" }
+      ]
+    },
+    {
+      "type": "team_member",
+      "name": "Team member",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Photo" },
+        { "type": "text", "id": "name", "label": "Name", "default": "Team Member" },
+        { "type": "text", "id": "role", "label": "Role", "default": "Founder" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "About content",
+      "blocks": [
+        { "type": "stat", "settings": { "number": "1,000+", "label": "Customers served" } },
+        { "type": "stat", "settings": { "number": "500+", "label": "5-star reviews" } },
+        { "type": "stat", "settings": { "number": "10%", "label": "Of profits donated" } },
+        { "type": "team_member", "settings": { "name": "Founder", "role": "Founder & CEO" } },
+        { "type": "team_member", "settings": { "name": "Team Member", "role": "Operations" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

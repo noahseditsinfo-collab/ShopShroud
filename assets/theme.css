@@ -485,6 +485,19 @@ h1, h2, h3, h4 {
 .social-refund__tier { border: 1px solid var(--color-border); border-radius: 6px; padding: 1.25rem; }
 .social-refund__tier strong { display: block; font-size: 1.3rem; color: var(--color-accent); margin-bottom: 0.25rem; }
 
+/* ============ About page ============ */
+.about-page { padding: 3rem 1.5rem; max-width: var(--page-width); margin: 0 auto; }
+.about-page__hero { text-align: center; max-width: 700px; margin: 0 auto 3rem; }
+.about-page__eyebrow { text-transform: uppercase; letter-spacing: 0.08em; font-size: 0.8rem; color: var(--color-accent); margin-bottom: 0.5rem; }
+.about-page__mission { font-size: 1.05rem; opacity: 0.85; }
+.about-page__stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1.5rem; text-align: center; margin-bottom: 3.5rem; padding-bottom: 3rem; border-bottom: 1px solid var(--color-border); }
+.about-page__stat strong { display: block; font-size: 2rem; font-family: var(--font-heading); color: var(--color-accent); }
+.about-page__stat span { font-size: 0.82rem; opacity: 0.7; }
+.about-page__story { max-width: 700px; margin: 0 auto 3.5rem; }
+.about-page__team { text-align: center; margin-bottom: 3.5rem; }
+.about-page__team-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
+.about-page__giving { background: var(--color-bg-secondary); border-radius: 8px; padding: 2.5rem; text-align: center; }
+
 /* ============ Meet the team ============ */
 .meet-team { padding: 3rem 1.5rem; max-width: var(--page-width); margin: 0 auto; text-align: center; }
 .meet-team__row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1.5rem; margin-top: 2rem; }
