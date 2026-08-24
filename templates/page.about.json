@@ -2,13 +2,32 @@
   "sections": {
     "main": {
       "type": "about-content",
-      "settings": {},
+      "settings": {
+        "eyebrow": "Jesus Based",
+        "heading": "More Than A Movement",
+        "subheading": "You were never meant to carry it alone.",
+        "mission_statement": "Shroud is a Christian apparel brand built to remind people they're covered — by grace, by faith, in whatever season they're walking through. Every piece is a conversation starter.",
+        "hero_button_label": "Shop the Collection",
+        "hero_button_link": "shopify://collections/all",
+        "why_heading": "Why This Matters",
+        "stats_citation": "Source: NAMI, \"Mental Health By the Numbers\" (2024 NSDUH data); NIMH.",
+        "scripture_verse": "He said to them, “Don't be amazed. You seek Jesus, the Nazarene, who has been crucified. He has risen. He is not here. Behold, the place where they laid him!”",
+        "scripture_reference": "Mark 16:6 (WEB)",
+        "story_heading": "Why We're Called Shroud",
+        "story_body": "<p>Our name comes from a burial custom nearly two thousand years old. After Jesus was crucified, his body was wrapped in a linen shroud and laid in a tomb — sealed, guarded, and left for dead.</p><p>Mark 16:6 tells us what happened next. When the women arrived at the tomb expecting to grieve, they found it empty instead. “He has risen. He is not here. Behold, the place where they laid him.”</p><p>He didn't just leave the tomb — he left the shroud behind. The cloth that was wrapped around him, meant to hold a dead body, was left there, empty. It couldn't hold him. Death didn't get the final word.</p><p>That's why we're called Shroud. Whatever's wrapped around you right now — shame, addiction, depression, grief, whatever feels like it's covering you — doesn't get the final word either. The tomb was empty. The shroud was left behind. That's the whole point of what we make: clothing that carries that same message, so it can start that same conversation with someone who needs to hear it.</p>",
+        "founder_story_heading": "Our Story",
+        "founder_story_body": "<p>Shroud started with a simple conversation between two people who wanted to use something as everyday as clothing to share something much bigger: the message of Jesus.</p><p>Noah and Jim already worked together, with Jim as Noah's boss. Noah had always worn Christian clothing and was constantly complimented on it. At the same time, Noah was creating Christian content across social media — sharing his faith, encouraging others, running a Christian podcast, and helping younger kids grow in their relationship with God.</p><p>One day, Jim brought up an idea: “We should start a brand.”</p><p>What immediately stood out to both of us was the story of the Shroud. We were fascinated by its connection to Jesus and His Resurrection, and we saw an opportunity to create something unique around that story.</p><p>To us, Shroud represents more than just a piece of clothing. It represents Jesus, His sacrifice, and His Resurrection. Just as the Shroud has become a powerful symbol connected to the story of Christ, we want every piece of Shroud clothing to become a way for people to carry and share that message wherever they go.</p><p>Noah has always had a strong passion for his faith, and Jim has been building a deeper relationship with God of his own. Shroud became a way for us to bring those journeys together and create something that goes beyond fashion.</p><p>Our hope is that Shroud becomes a Christian brand known around the world — not simply for its clothing, but for spreading the Word of God, creating unique designs, and showing the love of Jesus to everyone who wears it.</p><p><em>Shroud is more than clothing. It is a sign of Jesus' Resurrection.</em></p>",
+        "vision_statement": "Wear the message. Share the faith. Point people to Jesus.",
+        "team_heading": "From the Team",
+        "giving_heading": "Our Mission",
+        "giving_body": "A portion of every order supports faith-based recovery ministries — turning every order into real support for people who need it."
+      },
       "blocks": {
-        "s1": { "type": "stat", "settings": { "number": "1,000+", "label": "Customers served" } },
-        "s2": { "type": "stat", "settings": { "number": "500+", "label": "5-star reviews" } },
-        "s3": { "type": "stat", "settings": { "number": "10%", "label": "Of profits donated" } },
-        "m1": { "type": "team_member", "settings": { "name": "Founder", "role": "Founder & CEO" } },
-        "m2": { "type": "team_member", "settings": { "name": "Team Member", "role": "Operations" } }
+        "s1": { "type": "stat", "settings": { "number": "1 in 5", "label": "U.S. adults experience a mental illness each year" } },
+        "s2": { "type": "stat", "settings": { "number": "1 in 3", "label": "Young adults ages 18–25 do — the highest of any age group" } },
+        "s3": { "type": "stat", "settings": { "number": "1 in 2", "label": "Young adults with a mental illness go without treatment" } },
+        "m1": { "type": "team_member", "settings": { "name": "Noah Seiler", "role": "Owner", "quote": "I want Shroud to give people a way to wear their faith boldly and start conversations about Jesus. If one piece of clothing can lead someone to God, then it's worth everything." } },
+        "m2": { "type": "team_member", "settings": { "name": "Jim Piazza", "role": "Owner", "quote": "Shroud is an opportunity to build something that represents our faith and points people back to Jesus. We want this to be bigger than a clothing brand — we want it to be a way to spread His message." } }
       },
       "block_order": ["s1", "s2", "s3", "m1", "m2"]
     }

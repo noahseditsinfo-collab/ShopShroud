@@ -1,0 +1,1444 @@
+{% doc %}
+  @prompt
+    HELP CENTER
+    
+    How can we help?
+    Everything about your order, our products, sizing, and our mission — in one place. Search below or browse by topic.
+    
+    
+    All
+    Shipping & Delivery
+    Orders & Tracking
+    Returns & Exchanges
+    Sizing & Fit
+    Products & Care, can you make sure they link to the right question when searched or clicked
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-help-center-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    padding: {{ block.settings.section_padding }}px 20px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-help-center__container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.max_width }}px;
+    margin: 0 auto;
+  }
+
+  .ai-help-center__header-{{ ai_gen_id }} {
+    text-align: center;
+    margin-bottom: {{ block.settings.header_spacing }}px;
+  }
+
+  .ai-help-center__title-{{ ai_gen_id }} {
+    font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+    font-weight: {{ block.settings.heading_font.weight }};
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 {{ block.settings.title_spacing }}px 0;
+    line-height: 1.2;
+  }
+
+  .ai-help-center__subtitle-{{ ai_gen_id }} {
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-weight: {{ block.settings.body_font.weight }};
+    font-size: {{ block.settings.subtitle_size }}px;
+    color: {{ block.settings.subtitle_color }};
+    margin: 0 0 {{ block.settings.search_spacing }}px 0;
+    line-height: 1.5;
+  }
+
+  .ai-help-center__search-{{ ai_gen_id }} {
+    position: relative;
+    max-width: {{ block.settings.search_max_width }}px;
+    margin: 0 auto {{ block.settings.categories_spacing }}px;
+  }
+
+  .ai-help-center__search-input-{{ ai_gen_id }} {
+    width: 100%;
+    padding: {{ block.settings.search_padding }}px {{ block.settings.search_padding | plus: 40 }}px {{ block.settings.search_padding }}px {{ block.settings.search_padding }}px;
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-size: {{ block.settings.search_font_size }}px;
+    border: {{ block.settings.search_border_width }}px solid {{ block.settings.search_border_color }};
+    border-radius: {{ block.settings.search_border_radius }}px;
+    background-color: {{ block.settings.search_background }};
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-help-center__search-input-{{ ai_gen_id }}::placeholder {
+    color: {{ block.settings.placeholder_color }};
+  }
+
+  .ai-help-center__search-input-{{ ai_gen_id }}:focus {
+    outline: 2px solid {{ block.settings.accent_color }};
+    outline-offset: 2px;
+  }
+
+  .ai-help-center__search-icon-{{ ai_gen_id }} {
+    position: absolute;
+    right: {{ block.settings.search_padding }}px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: {{ block.settings.icon_color }};
+  }
+
+  .ai-help-center__categories-{{ ai_gen_id }} {
+    display: flex;
+    flex-wrap: wrap;
+    gap: {{ block.settings.category_gap }}px;
+    justify-content: center;
+    margin-bottom: {{ block.settings.questions_spacing }}px;
+  }
+
+  .ai-help-center__category-{{ ai_gen_id }} {
+    padding: {{ block.settings.category_padding_vertical }}px {{ block.settings.category_padding_horizontal }}px;
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-size: {{ block.settings.category_font_size }}px;
+    border: {{ block.settings.category_border_width }}px solid {{ block.settings.category_border_color }};
+    border-radius: {{ block.settings.category_border_radius }}px;
+    background-color: {{ block.settings.category_background }};
+    color: {{ block.settings.category_text_color }};
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .ai-help-center__category-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.category_hover_background }};
+    color: {{ block.settings.category_hover_text }};
+    border-color: {{ block.settings.category_hover_border }};
+  }
+
+  .ai-help-center__category-{{ ai_gen_id }}.active {
+    background-color: {{ block.settings.category_active_background }};
+    color: {{ block.settings.category_active_text }};
+    border-color: {{ block.settings.category_active_border }};
+  }
+
+  .ai-help-center__questions-{{ ai_gen_id }} {
+    max-width: {{ block.settings.questions_max_width }}px;
+    margin: 0 auto;
+  }
+
+  .ai-help-center__question-{{ ai_gen_id }} {
+    border-bottom: 1px solid {{ block.settings.question_border_color }};
+    padding: {{ block.settings.question_padding }}px 0;
+  }
+
+  .ai-help-center__question-{{ ai_gen_id }}.hidden {
+    display: none;
+  }
+
+  .ai-help-center__question-button-{{ ai_gen_id }} {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    text-align: left;
+  }
+
+  .ai-help-center__question-text-{{ ai_gen_id }} {
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-size: {{ block.settings.question_font_size }}px;
+    font-weight: 600;
+    color: {{ block.settings.question_text_color }};
+    line-height: 1.4;
+  }
+
+  .ai-help-center__question-icon-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    color: {{ block.settings.icon_color }};
+    transition: transform 0.3s ease;
+  }
+
+  .ai-help-center__question-{{ ai_gen_id }}.open .ai-help-center__question-icon-{{ ai_gen_id }} {
+    transform: rotate(180deg);
+  }
+
+  .ai-help-center__answer-{{ ai_gen_id }} {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .ai-help-center__answer-content-{{ ai_gen_id }} {
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-size: {{ block.settings.answer_font_size }}px;
+    color: {{ block.settings.answer_text_color }};
+    line-height: 1.6;
+    padding-top: {{ block.settings.answer_padding }}px;
+  }
+
+  .ai-help-center__no-results-{{ ai_gen_id }} {
+    text-align: center;
+    padding: 40px 20px;
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-size: {{ block.settings.subtitle_size }}px;
+    color: {{ block.settings.subtitle_color }};
+  }
+
+  .ai-help-center__no-results-{{ ai_gen_id }}.hidden {
+    display: none;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-help-center__title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.8 }}px;
+    }
+
+    .ai-help-center__subtitle-{{ ai_gen_id }} {
+      font-size: {{ block.settings.subtitle_size | times: 0.9 }}px;
+    }
+
+    .ai-help-center__categories-{{ ai_gen_id }} {
+      gap: {{ block.settings.category_gap | times: 0.7 }}px;
+    }
+
+    .ai-help-center__category-{{ ai_gen_id }} {
+      font-size: {{ block.settings.category_font_size | times: 0.9 }}px;
+      padding: {{ block.settings.category_padding_vertical | times: 0.8 }}px {{ block.settings.category_padding_horizontal | times: 0.8 }}px;
+    }
+  }
+{% endstyle %}
+
+<help-center-{{ ai_gen_id }} class="ai-help-center-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  <div class="ai-help-center__container-{{ ai_gen_id }}">
+    <div class="ai-help-center__header-{{ ai_gen_id }}">
+      {% if block.settings.title != blank %}
+        <h1 class="ai-help-center__title-{{ ai_gen_id }}">{{ block.settings.title }}</h1>
+      {% endif %}
+      {% if block.settings.subtitle != blank %}
+        <p class="ai-help-center__subtitle-{{ ai_gen_id }}">{{ block.settings.subtitle }}</p>
+      {% endif %}
+    </div>
+
+    <div class="ai-help-center__search-{{ ai_gen_id }}">
+      <input
+        type="text"
+        class="ai-help-center__search-input-{{ ai_gen_id }}"
+        placeholder="{{ block.settings.search_placeholder }}"
+        aria-label="Search help articles"
+      >
+      <svg class="ai-help-center__search-icon-{{ ai_gen_id }}" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M9 17A8 8 0 1 0 9 1a8 8 0 0 0 0 16zM19 19l-4.35-4.35" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </div>
+
+    <div class="ai-help-center__categories-{{ ai_gen_id }}">
+      <button class="ai-help-center__category-{{ ai_gen_id }} active" data-category="all">
+        {{ block.settings.category_all }}
+      </button>
+      <button class="ai-help-center__category-{{ ai_gen_id }}" data-category="shipping">
+        {{ block.settings.category_shipping }}
+      </button>
+      <button class="ai-help-center__category-{{ ai_gen_id }}" data-category="orders">
+        {{ block.settings.category_orders }}
+      </button>
+      <button class="ai-help-center__category-{{ ai_gen_id }}" data-category="returns">
+        {{ block.settings.category_returns }}
+      </button>
+      <button class="ai-help-center__category-{{ ai_gen_id }}" data-category="sizing">
+        {{ block.settings.category_sizing }}
+      </button>
+      <button class="ai-help-center__category-{{ ai_gen_id }}" data-category="products">
+        {{ block.settings.category_products }}
+      </button>
+    </div>
+
+    <div class="ai-help-center__questions-{{ ai_gen_id }}">
+      {% for i in (1..20) %}
+        {% liquid
+          assign question_key = 'question_' | append: i
+          assign answer_key = 'answer_' | append: i
+          assign category_key = 'question_' | append: i | append: '_category'
+          
+          assign question = block.settings[question_key]
+          assign answer = block.settings[answer_key]
+          assign category = block.settings[category_key]
+        %}
+        
+        {% if question != blank and answer != blank %}
+          <div class="ai-help-center__question-{{ ai_gen_id }}" data-category="{{ category }}">
+            <button class="ai-help-center__question-button-{{ ai_gen_id }}" aria-expanded="false">
+              <span class="ai-help-center__question-text-{{ ai_gen_id }}">{{ question }}</span>
+              <svg class="ai-help-center__question-icon-{{ ai_gen_id }}" width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M5 7.5L10 12.5L15 7.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <div class="ai-help-center__answer-{{ ai_gen_id }}">
+              <div class="ai-help-center__answer-content-{{ ai_gen_id }}">{{ answer }}</div>
+            </div>
+          </div>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+    <div class="ai-help-center__no-results-{{ ai_gen_id }} hidden">
+      {{ block.settings.no_results_text }}
+    </div>
+  </div>
+</help-center-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class HelpCenter{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.searchInput = this.querySelector('.ai-help-center__search-input-{{ ai_gen_id }}');
+        this.categoryButtons = this.querySelectorAll('.ai-help-center__category-{{ ai_gen_id }}');
+        this.questions = this.querySelectorAll('.ai-help-center__question-{{ ai_gen_id }}');
+        this.noResults = this.querySelector('.ai-help-center__no-results-{{ ai_gen_id }}');
+        this.currentCategory = 'all';
+
+        this.setupEventListeners();
+      }
+
+      setupEventListeners() {
+        this.searchInput.addEventListener('input', (e) => {
+          this.handleSearch(e.target.value);
+        });
+
+        this.categoryButtons.forEach((button) => {
+          button.addEventListener('click', () => {
+            this.handleCategoryClick(button);
+          });
+        });
+
+        this.questions.forEach((question) => {
+          const button = question.querySelector('.ai-help-center__question-button-{{ ai_gen_id }}');
+          const answer = question.querySelector('.ai-help-center__answer-{{ ai_gen_id }}');
+          
+          button.addEventListener('click', () => {
+            this.toggleQuestion(question, button, answer);
+          });
+        });
+      }
+
+      handleSearch(searchTerm) {
+        const term = searchTerm.toLowerCase().trim();
+        let visibleCount = 0;
+
+        this.questions.forEach((question) => {
+          const questionText = question.querySelector('.ai-help-center__question-text-{{ ai_gen_id }}').textContent.toLowerCase();
+          const answerText = question.querySelector('.ai-help-center__answer-content-{{ ai_gen_id }}').textContent.toLowerCase();
+          const category = question.getAttribute('data-category');
+          
+          const matchesSearch = term === '' || questionText.includes(term) || answerText.includes(term);
+          const matchesCategory = this.currentCategory === 'all' || category === this.currentCategory;
+          
+          if (matchesSearch && matchesCategory) {
+            question.classList.remove('hidden');
+            visibleCount++;
+          } else {
+            question.classList.add('hidden');
+            this.closeQuestion(question);
+          }
+        });
+
+        if (visibleCount === 0) {
+          this.noResults.classList.remove('hidden');
+        } else {
+          this.noResults.classList.add('hidden');
+        }
+      }
+
+      handleCategoryClick(clickedButton) {
+        this.categoryButtons.forEach((btn) => btn.classList.remove('active'));
+        clickedButton.classList.add('active');
+        
+        this.currentCategory = clickedButton.getAttribute('data-category');
+        this.handleSearch(this.searchInput.value);
+      }
+
+      toggleQuestion(question, button, answer) {
+        const isOpen = question.classList.contains('open');
+        
+        if (isOpen) {
+          this.closeQuestion(question);
+        } else {
+          this.openQuestion(question, button, answer);
+        }
+      }
+
+      openQuestion(question, button, answer) {
+        question.classList.add('open');
+        button.setAttribute('aria-expanded', 'true');
+        answer.style.maxHeight = answer.scrollHeight + 'px';
+      }
+
+      closeQuestion(question) {
+        const button = question.querySelector('.ai-help-center__question-button-{{ ai_gen_id }}');
+        const answer = question.querySelector('.ai-help-center__answer-{{ ai_gen_id }}');
+        
+        question.classList.remove('open');
+        button.setAttribute('aria-expanded', 'false');
+        answer.style.maxHeight = '0';
+      }
+    }
+
+    customElements.define('help-center-{{ ai_gen_id }}', HelpCenter{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Help center",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "How can we help?"
+    },
+    {
+      "type": "textarea",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Everything about your order, our products, sizing, and our mission — in one place. Search below or browse by topic."
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title size",
+      "min": 24,
+      "max": 72,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "label": "Subtitle size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "header",
+      "content": "Search"
+    },
+    {
+      "type": "text",
+      "id": "search_placeholder",
+      "label": "Search placeholder",
+      "default": "Search for answers..."
+    },
+    {
+      "type": "range",
+      "id": "search_max_width",
+      "label": "Search max width",
+      "min": 400,
+      "max": 800,
+      "step": 20,
+      "unit": "px",
+      "default": 600
+    },
+    {
+      "type": "range",
+      "id": "search_padding",
+      "label": "Search padding",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "search_font_size",
+      "label": "Search font size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "search_border_radius",
+      "label": "Search border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 8
+    },
+    {
+      "type": "range",
+      "id": "search_border_width",
+      "label": "Search border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "Categories"
+    },
+    {
+      "type": "text",
+      "id": "category_all",
+      "label": "All category label",
+      "default": "All"
+    },
+    {
+      "type": "text",
+      "id": "category_shipping",
+      "label": "Shipping category label",
+      "default": "Shipping & Delivery"
+    },
+    {
+      "type": "text",
+      "id": "category_orders",
+      "label": "Orders category label",
+      "default": "Orders & Tracking"
+    },
+    {
+      "type": "text",
+      "id": "category_returns",
+      "label": "Returns category label",
+      "default": "Returns & Exchanges"
+    },
+    {
+      "type": "text",
+      "id": "category_sizing",
+      "label": "Sizing category label",
+      "default": "Sizing & Fit"
+    },
+    {
+      "type": "text",
+      "id": "category_products",
+      "label": "Products category label",
+      "default": "Products & Care"
+    },
+    {
+      "type": "range",
+      "id": "category_gap",
+      "label": "Category gap",
+      "min": 4,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "category_padding_vertical",
+      "label": "Category vertical padding",
+      "min": 4,
+      "max": 20,
+      "step": 2,
+      "unit": "px",
+      "default": 10
+    },
+    {
+      "type": "range",
+      "id": "category_padding_horizontal",
+      "label": "Category horizontal padding",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "category_font_size",
+      "label": "Category font size",
+      "min": 12,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "category_border_radius",
+      "label": "Category border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "category_border_width",
+      "label": "Category border width",
+      "min": 0,
+      "max": 4,
+      "step": 1,
+      "unit": "px",
+      "default": 1
+    },
+    {
+      "type": "header",
+      "content": "Questions"
+    },
+    {
+      "type": "range",
+      "id": "questions_max_width",
+      "label": "Questions max width",
+      "min": 600,
+      "max": 1000,
+      "step": 20,
+      "unit": "px",
+      "default": 800
+    },
+    {
+      "type": "range",
+      "id": "question_padding",
+      "label": "Question padding",
+      "min": 12,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "question_font_size",
+      "label": "Question font size",
+      "min": 14,
+      "max": 22,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "answer_font_size",
+      "label": "Answer font size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "answer_padding",
+      "label": "Answer padding top",
+      "min": 8,
+      "max": 24,
+      "step": 2,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "text",
+      "id": "no_results_text",
+      "label": "No results text",
+      "default": "No results found. Try a different search term or category."
+    },
+    {
+      "type": "header",
+      "content": "Question 1"
+    },
+    {
+      "type": "select",
+      "id": "question_1_category",
+      "label": "Category",
+      "options": [
+        { "value": "shipping", "label": "Shipping & Delivery" },
+        { "value": "orders", "label": "Orders & Tracking" },
+        { "value": "returns", "label": "Returns & Exchanges" },
+        { "value": "sizing", "label": "Sizing & Fit" },
+        { "value": "products", "label": "Products & Care" }
+      ],
+      "default": "shipping"
+    },
+    {
+      "type": "text",
+      "id": "question_1",
+      "label": "Question"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_1",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "Question 2"
+    },
+    {
+      "type": "select",
+      "id": "question_2_category",
+      "label": "Category",
+      "options": [
+        { "value": "shipping", "label": "Shipping & Delivery" },
+        { "value": "orders", "label": "Orders & Tracking" },
+        { "value": "returns", "label": "Returns & Exchanges" },
+        { "value": "sizing", "label": "Sizing & Fit" },
+        { "value": "products", "label": "Products & Care" }
+      ],
+      "default": "shipping"
+    },
+    {
+      "type": "text",
+      "id": "question_2",
+      "label": "Question"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_2",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "Question 3"
+    },
+    {
+      "type": "select",
+      "id": "question_3_category",
+      "label": "Category",
+      "options": [
+        { "value": "shipping", "label": "Shipping & Delivery" },
+        { "value": "orders", "label": "Orders & Tracking" },
+        { "value": "returns", "label": "Returns & Exchanges" },
+        { "value": "sizing", "label": "Sizing & Fit" },
+        { "value": "products", "label": "Products & Care" }
+      ],
+      "default": "orders"
+    },
+    {
+      "type": "text",
+      "id": "question_3",
+      "label": "Question"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_3",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "Question 4"
+    },
+    {
+      "type": "select",
+      "id": "question_4_category",
+      "label": "Category",
+      "options": [
+        { "value": "shipping", "label": "Shipping & Delivery" },
+        { "value": "orders", "label": "Orders & Tracking" },
+        { "value": "returns", "label": "Returns & Exchanges" },
+        { "value": "sizing", "label": "Sizing & Fit" },
+        { "value": "products", "label": "Products & Care" }
+      ],
+      "default": "orders"
+    },
+    {
+      "type": "text",
+      "id": "question_4",
+      "label": "Question"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_4",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "Question 5"
+    },
+    {
+      "type": "select",
+      "id": "question_5_category",
+      "label": "Category",
+      "options": [
+        { "value": "shipping", "label": "Shipping & Delivery" },
+        { "value": "orders", "label": "Orders & Tracking" },
+        { "value": "returns", "label": "Returns & Exchanges" },
+        { "value": "sizing", "label": "Sizing & Fit" },
+        { "value": "products", "label": "Products & Care" }
+      ],
+      "default": "returns"
+    },
+    {
+      "type": "text",
+      "id": "question_5",
+      "label": "Question"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_5",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "Question 6"
+    },
+    {
+      "type": "select",
+      "id": "question_6_category",
+      "label": "Category",
+      "options": [
+        { "value": "shipping", "label": "Shipping & Delivery" },
+        { "value": "orders", "label": "Orders & Tracking" },
+        { "value": "returns", "label": "Returns & Exchanges" },
+        { "value": "sizing", "label": "Sizing & Fit" },
+        { "value": "products", "label": "Products & Care" }
+      ],
+      "default": "returns"
+    },
+    {
+      "type": "text",
+      "id": "question_6",
+      "label": "Question"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_6",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "Question 7"
+    },
+    {
+      "type": "select",
+      "id": "question_7_category",
+      "label": "Category",
+      "options": [
+        { "value": "shipping", "label": "Shipping & Delivery" },
+        { "value": "orders", "label": "Orders & Tracking" },
+        { "value": "returns", "label": "Returns & Exchanges" },
+        { "value": "sizing", "label": "Sizing & Fit" },
+        { "value": "products", "label": "Products & Care" }
+      ],
+      "default": "sizing"
+    },
+    {
+      "type": "text",
+      "id": "question_7",
+      "label": "Question"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_7",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "Question 8"
+    },
+    {
+      "type": "select",
+      "id": "question_8_category",
+      "label": "Category",
+      "options": [
+        { "value": "shipping", "label": "Shipping & Delivery" },
+        { "value": "orders", "label": "Orders & Tracking" },
+        { "value": "returns", "label": "Returns & Exchanges" },
+        { "value": "sizing", "label": "Sizing & Fit" },
+        { "value": "products", "label": "Products & Care" }
+      ],
+      "default": "sizing"
+    },
+    {
+      "type": "text",
+      "id": "question_8",
+      "label": "Question"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_8",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "Question 9"
+    },
+    {
+      "type": "select",
+      "id": "question_9_category",
+      "label": "Category",
+      "options": [
+        { "value": "shipping", "label": "Shipping & Delivery" },
+        { "value": "orders", "label": "Orders & Tracking" },
+        { "value": "returns", "label": "Returns & Exchanges" },
+        { "value": "sizing", "label": "Sizing & Fit" },
+        { "value": "products", "label": "Products & Care" }
+      ],
+      "default": "products"
+    },
+    {
+      "type": "text",
+      "id": "question_9",
+      "label": "Question"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_9",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "Question 10"
+    },
+    {
+      "type": "select",
+      "id": "question_10_category",
+      "label": "Category",
+      "options": [
+        { "value": "shipping", "label": "Shipping & Delivery" },
+        { "value": "orders", "label": "Orders & Tracking" },
+        { "value": "returns", "label": "Returns & Exchanges" },
+        { "value": "sizing", "label": "Sizing & Fit" },
+        { "value": "products", "label": "Products & Care" }
+      ],
+      "default": "products"
+    },
+    {
+      "type": "text",
+      "id": "question_10",
+      "label": "Question"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_10",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "Question 11"
+    },
+    {
+      "type": "select",
+      "id": "question_11_category",
+      "label": "Category",
+      "options": [
+        { "value": "shipping", "label": "Shipping & Delivery" },
+        { "value": "orders", "label": "Orders & Tracking" },
+        { "value": "returns", "label": "Returns & Exchanges" },
+        { "value": "sizing", "label": "Sizing & Fit" },
+        { "value": "products", "label": "Products & Care" }
+      ],
+      "default": "shipping"
+    },
+    {
+      "type": "text",
+      "id": "question_11",
+      "label": "Question"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_11",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "Question 12"
+    },
+    {
+      "type": "select",
+      "id": "question_12_category",
+      "label": "Category",
+      "options": [
+        { "value": "shipping", "label": "Shipping & Delivery" },
+        { "value": "orders", "label": "Orders & Tracking" },
+        { "value": "returns", "label": "Returns & Exchanges" },
+        { "value": "sizing", "label": "Sizing & Fit" },
+        { "value": "products", "label": "Products & Care" }
+      ],
+      "default": "orders"
+    },
+    {
+      "type": "text",
+      "id": "question_12",
+      "label": "Question"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_12",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "Question 13"
+    },
+    {
+      "type": "select",
+      "id": "question_13_category",
+      "label": "Category",
+      "options": [
+        { "value": "shipping", "label": "Shipping & Delivery" },
+        { "value": "orders", "label": "Orders & Tracking" },
+        { "value": "returns", "label": "Returns & Exchanges" },
+        { "value": "sizing", "label": "Sizing & Fit" },
+        { "value": "products", "label": "Products & Care" }
+      ],
+      "default": "returns"
+    },
+    {
+      "type": "text",
+      "id": "question_13",
+      "label": "Question"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_13",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "Question 14"
+    },
+    {
+      "type": "select",
+      "id": "question_14_category",
+      "label": "Category",
+      "options": [
+        { "value": "shipping", "label": "Shipping & Delivery" },
+        { "value": "orders", "label": "Orders & Tracking" },
+        { "value": "returns", "label": "Returns & Exchanges" },
+        { "value": "sizing", "label": "Sizing & Fit" },
+        { "value": "products", "label": "Products & Care" }
+      ],
+      "default": "sizing"
+    },
+    {
+      "type": "text",
+      "id": "question_14",
+      "label": "Question"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_14",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "Question 15"
+    },
+    {
+      "type": "select",
+      "id": "question_15_category",
+      "label": "Category",
+      "options": [
+        { "value": "shipping", "label": "Shipping & Delivery" },
+        { "value": "orders", "label": "Orders & Tracking" },
+        { "value": "returns", "label": "Returns & Exchanges" },
+        { "value": "sizing", "label": "Sizing & Fit" },
+        { "value": "products", "label": "Products & Care" }
+      ],
+      "default": "products"
+    },
+    {
+      "type": "text",
+      "id": "question_15",
+      "label": "Question"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_15",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "Question 16"
+    },
+    {
+      "type": "select",
+      "id": "question_16_category",
+      "label": "Category",
+      "options": [
+        { "value": "shipping", "label": "Shipping & Delivery" },
+        { "value": "orders", "label": "Orders & Tracking" },
+        { "value": "returns", "label": "Returns & Exchanges" },
+        { "value": "sizing", "label": "Sizing & Fit" },
+        { "value": "products", "label": "Products & Care" }
+      ],
+      "default": "shipping"
+    },
+    {
+      "type": "text",
+      "id": "question_16",
+      "label": "Question"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_16",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "Question 17"
+    },
+    {
+      "type": "select",
+      "id": "question_17_category",
+      "label": "Category",
+      "options": [
+        { "value": "shipping", "label": "Shipping & Delivery" },
+        { "value": "orders", "label": "Orders & Tracking" },
+        { "value": "returns", "label": "Returns & Exchanges" },
+        { "value": "sizing", "label": "Sizing & Fit" },
+        { "value": "products", "label": "Products & Care" }
+      ],
+      "default": "orders"
+    },
+    {
+      "type": "text",
+      "id": "question_17",
+      "label": "Question"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_17",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "Question 18"
+    },
+    {
+      "type": "select",
+      "id": "question_18_category",
+      "label": "Category",
+      "options": [
+        { "value": "shipping", "label": "Shipping & Delivery" },
+        { "value": "orders", "label": "Orders & Tracking" },
+        { "value": "returns", "label": "Returns & Exchanges" },
+        { "value": "sizing", "label": "Sizing & Fit" },
+        { "value": "products", "label": "Products & Care" }
+      ],
+      "default": "returns"
+    },
+    {
+      "type": "text",
+      "id": "question_18",
+      "label": "Question"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_18",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "Question 19"
+    },
+    {
+      "type": "select",
+      "id": "question_19_category",
+      "label": "Category",
+      "options": [
+        { "value": "shipping", "label": "Shipping & Delivery" },
+        { "value": "orders", "label": "Orders & Tracking" },
+        { "value": "returns", "label": "Returns & Exchanges" },
+        { "value": "sizing", "label": "Sizing & Fit" },
+        { "value": "products", "label": "Products & Care" }
+      ],
+      "default": "sizing"
+    },
+    {
+      "type": "text",
+      "id": "question_19",
+      "label": "Question"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_19",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "Question 20"
+    },
+    {
+      "type": "select",
+      "id": "question_20_category",
+      "label": "Category",
+      "options": [
+        { "value": "shipping", "label": "Shipping & Delivery" },
+        { "value": "orders", "label": "Orders & Tracking" },
+        { "value": "returns", "label": "Returns & Exchanges" },
+        { "value": "sizing", "label": "Sizing & Fit" },
+        { "value": "products", "label": "Products & Care" }
+      ],
+      "default": "products"
+    },
+    {
+      "type": "text",
+      "id": "question_20",
+      "label": "Question"
+    },
+    {
+      "type": "textarea",
+      "id": "answer_20",
+      "label": "Answer"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "max_width",
+      "label": "Max width",
+      "min": 800,
+      "max": 1400,
+      "step": 50,
+      "unit": "px",
+      "default": 1200
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Section padding",
+      "min": 20,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "header_spacing",
+      "label": "Header spacing",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "title_spacing",
+      "label": "Title spacing",
+      "min": 8,
+      "max": 32,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "search_spacing",
+      "label": "Search spacing",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "categories_spacing",
+      "label": "Categories spacing",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "questions_spacing",
+      "label": "Questions spacing",
+      "min": 20,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle",
+      "default": "#4D4D4D"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "accent_color",
+      "label": "Accent",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "icon_color",
+      "label": "Icons",
+      "default": "#4D4D4D"
+    },
+    {
+      "type": "header",
+      "content": "Search colors"
+    },
+    {
+      "type": "color",
+      "id": "search_background",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "search_border_color",
+      "label": "Border",
+      "default": "#DDDDDD"
+    },
+    {
+      "type": "color",
+      "id": "placeholder_color",
+      "label": "Placeholder",
+      "default": "#999999"
+    },
+    {
+      "type": "header",
+      "content": "Category colors"
+    },
+    {
+      "type": "color",
+      "id": "category_background",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "category_text_color",
+      "label": "Text",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "category_border_color",
+      "label": "Border",
+      "default": "#DDDDDD"
+    },
+    {
+      "type": "color",
+      "id": "category_hover_background",
+      "label": "Hover background",
+      "default": "#F1F1F1"
+    },
+    {
+      "type": "color",
+      "id": "category_hover_text",
+      "label": "Hover text",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "category_hover_border",
+      "label": "Hover border",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "category_active_background",
+      "label": "Active background",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "category_active_text",
+      "label": "Active text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "category_active_border",
+      "label": "Active border",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "header",
+      "content": "Question colors"
+    },
+    {
+      "type": "color",
+      "id": "question_text_color",
+      "label": "Question text",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "answer_text_color",
+      "label": "Answer text",
+      "default": "#4D4D4D"
+    },
+    {
+      "type": "color",
+      "id": "question_border_color",
+      "label": "Border",
+      "default": "#DDDDDD"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "archivo_black_n4"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Body font",
+      "default": "work_sans_n4"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Help center"
+    }
+  ]
+}
+{% endschema %}

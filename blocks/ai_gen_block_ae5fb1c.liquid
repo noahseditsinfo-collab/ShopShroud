@@ -1,0 +1,431 @@
+{% doc %}
+  @prompt
+    Recreate the "Detox launch countdown" password page block with all existing features, but add these background settings: 1) An image_picker setting labeled "Background image" - displays as full-bleed background (cover, center) with a dark overlay. 2) A color setting labeled "Background color" defaulting to #000000. 3) A range setting labeled "Overlay opacity" (0-100, default 60) to control darkness of the overlay when a background image is used. If a background image is uploaded, use it with the overlay. If no image, use the background color. Also include: image_picker setting labeled "Logo image" displayed centered at top (max-height: 80px, filter: brightness(0) invert(1)), fallback to store name text if no logo. Then: live countdown timer (DAYS/HOURS/MINUTES/SECONDS) with large white bold numbers, "GET EARLY ACCESS" headline, subheading "Sign up to get exclusive access to our next drop:", country code dropdown, phone number input, "NOTIFY ME" full-width button, SMS fine print. Fonts: Archivo Black headings, Work Sans body. All white text, everything centered, premium streetwear aesthetic.
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-detox-countdown-{{ ai_gen_id }} {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    overflow: hidden;
+    width: 100%;
+  }
+  .ai-detox-countdown-bg-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 1;
+  }
+  .ai-detox-countdown-bg-image-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+  .ai-detox-countdown-bg-color-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: {{ block.settings.background_color }};
+  }
+  .ai-detox-countdown-overlay-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background-color: rgba(0,0,0,{{ block.settings.overlay_opacity | divided_by: 100.0 }});
+  }
+  .ai-detox-countdown-content-{{ ai_gen_id }} {
+    position: relative;
+    z-index: 2;
+    max-width: 600px;
+    width: 100%;
+    text-align: center;
+  }
+  .ai-detox-countdown-logo-{{ ai_gen_id }} {
+    margin-bottom: 60px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .ai-detox-countdown-logo-image-{{ ai_gen_id }} {
+    max-height: 80px;
+    width: auto;
+    filter: brightness(0) invert(1);
+  }
+  .ai-detox-countdown-logo-text-{{ ai_gen_id }} {
+    font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+    font-weight: {{ block.settings.heading_font.weight }};
+    font-size: 32px;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  .ai-detox-countdown-timer-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 60px;
+  }
+  .ai-detox-countdown-timer-unit-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .ai-detox-countdown-timer-number-{{ ai_gen_id }} {
+    font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+    font-weight: {{ block.settings.heading_font.weight }};
+    font-size: 56px;
+    line-height: 1;
+    color: #ffffff;
+    margin-bottom: 8px;
+  }
+  .ai-detox-countdown-timer-label-{{ ai_gen_id }} {
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-size: 12px;
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.8;
+  }
+  .ai-detox-countdown-headline-{{ ai_gen_id }} {
+    font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+    font-weight: {{ block.settings.heading_font.weight }};
+    font-size: 36px;
+    line-height: 1.2;
+    color: #ffffff;
+    margin-bottom: 16px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+  .ai-detox-countdown-subheading-{{ ai_gen_id }} {
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-size: 16px;
+    line-height: 1.5;
+    color: #ffffff;
+    margin-bottom: 40px;
+    opacity: 0.9;
+  }
+  .ai-detox-countdown-form-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .ai-detox-countdown-phone-wrapper-{{ ai_gen_id }} {
+    display: flex;
+    gap: 12px;
+  }
+  .ai-detox-countdown-country-select-{{ ai_gen_id }} {
+    flex-shrink: 0;
+    width: 120px;
+    padding: 16px;
+    background-color: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 14px;
+    cursor: pointer;
+  }
+  .ai-detox-countdown-country-select-{{ ai_gen_id }} option {
+    background-color: #000000;
+    color: #ffffff;
+  }
+  .ai-detox-countdown-phone-input-{{ ai_gen_id }} {
+    flex-grow: 1;
+    padding: 16px;
+    background-color: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.2);
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 14px;
+  }
+  .ai-detox-countdown-phone-input-{{ ai_gen_id }}::placeholder {
+    color: rgba(255,255,255,0.5);
+  }
+  .ai-detox-countdown-button-{{ ai_gen_id }} {
+    width: 100%;
+    padding: 18px;
+    background-color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    color: #000000;
+    font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+    font-weight: {{ block.settings.heading_font.weight }};
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+  .ai-detox-countdown-button-{{ ai_gen_id }}:hover {
+    background-color: rgba(255,255,255,0.9);
+    transform: translateY(-2px);
+  }
+  .ai-detox-countdown-disclaimer-{{ ai_gen_id }} {
+    font-size: 11px;
+    line-height: 1.5;
+    color: rgba(255,255,255,0.6);
+    margin-top: 16px;
+  }
+  .ai-detox-countdown-success-{{ ai_gen_id }} {
+    display: none;
+    padding: 16px;
+    background-color: rgba(0,255,0,0.1);
+    border: 1px solid rgba(0,255,0,0.3);
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 14px;
+    margin-top: 16px;
+  }
+  .ai-detox-countdown-success-{{ ai_gen_id }}.active { display: block; }
+  .ai-detox-countdown-error-{{ ai_gen_id }} {
+    display: none;
+    padding: 16px;
+    background-color: rgba(255,0,0,0.1);
+    border: 1px solid rgba(255,0,0,0.3);
+    border-radius: 4px;
+    color: #ffffff;
+    font-size: 14px;
+    margin-top: 16px;
+  }
+  .ai-detox-countdown-error-{{ ai_gen_id }}.active { display: block; }
+  @media screen and (max-width: 749px) {
+    .ai-detox-countdown-timer-{{ ai_gen_id }} { gap: 20px; }
+    .ai-detox-countdown-timer-number-{{ ai_gen_id }} { font-size: 40px; }
+    .ai-detox-countdown-timer-label-{{ ai_gen_id }} { font-size: 10px; }
+    .ai-detox-countdown-headline-{{ ai_gen_id }} { font-size: 28px; }
+    .ai-detox-countdown-subheading-{{ ai_gen_id }} { font-size: 14px; }
+    .ai-detox-countdown-phone-wrapper-{{ ai_gen_id }} { flex-direction: column; }
+    .ai-detox-countdown-country-select-{{ ai_gen_id }} { width: 100%; }
+  }
+{% endstyle %}
+<detox-countdown-{{ ai_gen_id }}
+  class="ai-detox-countdown-{{ ai_gen_id }}"
+  data-launch-date="{{ block.settings.launch_date }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-detox-countdown-bg-{{ ai_gen_id }}">
+    {% if block.settings.background_image %}
+      <img
+        src="{{ block.settings.background_image | image_url: width: 2000 }}"
+        alt="{{ block.settings.background_image.alt | escape }}"
+        class="ai-detox-countdown-bg-image-{{ ai_gen_id }}"
+        loading="eager"
+      >
+      <div class="ai-detox-countdown-overlay-{{ ai_gen_id }}"></div>
+    {% else %}
+      <div class="ai-detox-countdown-bg-color-{{ ai_gen_id }}"></div>
+    {% endif %}
+  </div>
+
+  <div class="ai-detox-countdown-content-{{ ai_gen_id }}">
+    <div class="ai-detox-countdown-logo-{{ ai_gen_id }}">
+      {% if block.settings.logo_image %}
+        <img
+          src="{{ block.settings.logo_image | image_url: width: 400 }}"
+          alt="{{ shop.name }}"
+          class="ai-detox-countdown-logo-image-{{ ai_gen_id }}"
+          loading="eager"
+        >
+      {% else %}
+        <div class="ai-detox-countdown-logo-text-{{ ai_gen_id }}">{{ shop.name }}</div>
+      {% endif %}
+    </div>
+
+    <div class="ai-detox-countdown-timer-{{ ai_gen_id }}">
+      <div class="ai-detox-countdown-timer-unit-{{ ai_gen_id }}">
+        <div class="ai-detox-countdown-timer-number-{{ ai_gen_id }}" data-days>00</div>
+        <div class="ai-detox-countdown-timer-label-{{ ai_gen_id }}">Days</div>
+      </div>
+      <div class="ai-detox-countdown-timer-unit-{{ ai_gen_id }}">
+        <div class="ai-detox-countdown-timer-number-{{ ai_gen_id }}" data-hours>00</div>
+        <div class="ai-detox-countdown-timer-label-{{ ai_gen_id }}">Hours</div>
+      </div>
+      <div class="ai-detox-countdown-timer-unit-{{ ai_gen_id }}">
+        <div class="ai-detox-countdown-timer-number-{{ ai_gen_id }}" data-minutes>00</div>
+        <div class="ai-detox-countdown-timer-label-{{ ai_gen_id }}">Minutes</div>
+      </div>
+      <div class="ai-detox-countdown-timer-unit-{{ ai_gen_id }}">
+        <div class="ai-detox-countdown-timer-number-{{ ai_gen_id }}" data-seconds>00</div>
+        <div class="ai-detox-countdown-timer-label-{{ ai_gen_id }}">Seconds</div>
+      </div>
+    </div>
+
+    <h1 class="ai-detox-countdown-headline-{{ ai_gen_id }}">Get Early Access</h1>
+    <p class="ai-detox-countdown-subheading-{{ ai_gen_id }}">
+      Sign up to get exclusive access to our next drop:
+    </p>
+
+    <form class="ai-detox-countdown-form-{{ ai_gen_id }}" data-form>
+      <div class="ai-detox-countdown-phone-wrapper-{{ ai_gen_id }}">
+        <select class="ai-detox-countdown-country-select-{{ ai_gen_id }}" name="country_code" required>
+          <option value="+1">🇺🇸 +1</option>
+          <option value="+44">🇬🇧 +44</option>
+          <option value="+61">🇦🇺 +61</option>
+          <option value="+1">🇨🇦 +1</option>
+          <option value="+49">🇩🇪 +49</option>
+          <option value="+33">🇫🇷 +33</option>
+          <option value="+39">🇮🇹 +39</option>
+          <option value="+34">🇪🇸 +34</option>
+          <option value="+81">🇯🇵 +81</option>
+          <option value="+82">🇰🇷 +82</option>
+          <option value="+86">🇨🇳 +86</option>
+          <option value="+91">🇮🇳 +91</option>
+          <option value="+52">🇲🇽 +52</option>
+          <option value="+55">🇧🇷 +55</option>
+        </select>
+        <input
+          type="tel"
+          class="ai-detox-countdown-phone-input-{{ ai_gen_id }}"
+          name="phone"
+          placeholder="Enter your phone number"
+          required
+        >
+      </div>
+      <button type="submit" class="ai-detox-countdown-button-{{ ai_gen_id }}">
+        Notify Me
+      </button>
+      <p class="ai-detox-countdown-disclaimer-{{ ai_gen_id }}">
+        By signing up, you agree to receive SMS notifications about our product launch. Message and data rates may apply. Reply STOP to unsubscribe at any time.
+      </p>
+    </form>
+
+    <div class="ai-detox-countdown-success-{{ ai_gen_id }}" data-success>
+      ✓ You're on the list! We'll text you when we launch.
+    </div>
+    <div class="ai-detox-countdown-error-{{ ai_gen_id }}" data-error>
+      ✗ Something went wrong. Please try again.
+    </div>
+  </div>
+</detox-countdown-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class DetoxCountdown{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+        this.launchDate = this.dataset.launchDate;
+        this.form = this.querySelector('[data-form]');
+        this.successMessage = this.querySelector('[data-success]');
+        this.errorMessage = this.querySelector('[data-error]');
+      }
+
+      connectedCallback() {
+        this.startCountdown();
+        this.setupForm();
+      }
+
+      startCountdown() {
+        const daysEl = this.querySelector('[data-days]');
+        const hoursEl = this.querySelector('[data-hours]');
+        const minutesEl = this.querySelector('[data-minutes]');
+        const secondsEl = this.querySelector('[data-seconds]');
+
+        const updateCountdown = () => {
+          const now = new Date().getTime();
+          const launchTime = new Date(this.launchDate).getTime();
+          const distance = launchTime - now;
+
+          if (distance < 0) {
+            daysEl.textContent = '00';
+            hoursEl.textContent = '00';
+            minutesEl.textContent = '00';
+            secondsEl.textContent = '00';
+            return;
+          }
+
+          daysEl.textContent = String(Math.floor(distance / 86400000)).padStart(2, '0');
+          hoursEl.textContent = String(Math.floor((distance % 86400000) / 3600000)).padStart(2, '0');
+          minutesEl.textContent = String(Math.floor((distance % 3600000) / 60000)).padStart(2, '0');
+          secondsEl.textContent = String(Math.floor((distance % 60000) / 1000)).padStart(2, '0');
+        };
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+      }
+
+      setupForm() {
+        this.form.addEventListener('submit', async (e) => {
+          e.preventDefault();
+
+          const formData = new FormData(this.form);
+          const countryCode = formData.get('country_code');
+          const rawPhone = formData.get('phone').replace(/\D/g, '');
+          const phoneNumber = countryCode + rawPhone;
+
+          const submitBtn = this.form.querySelector('button[type="submit"]');
+          submitBtn.disabled = true;
+          submitBtn.textContent = 'Submitting...';
+
+          try {
+            const response = await fetch('https://a.klaviyo.com/client/subscriptions/?company_id=SVZBV3', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                'revision': '2024-10-15'
+              },
+              body: JSON.stringify({
+                data: {
+                  type: 'subscription',
+                  attributes: {
+                    profile: {
+                      data: {
+                        type: 'profile',
+                        attributes: { phone_number: phoneNumber }
+                      }
+                    },
+                    subscriptions: {
+                      sms: { marketing: { consent: 'SUBSCRIBED' } }
+                    }
+                  },
+                  relationships: {
+                    list: { data: { type: 'list', id: 'YnHwHH' } }
+                  }
+                }
+              })
+            });
+
+            if (response.ok || response.status === 202) {
+              this.form.style.display = 'none';
+              this.successMessage.classList.add('active');
+            } else {
+              throw new Error('Failed');
+            }
+          } catch (err) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = 'Notify Me';
+            this.errorMessage.classList.add('active');
+          }
+        });
+      }
+    }
+
+    customElements.define('detox-countdown-{{ ai_gen_id }}', DetoxCountdown{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Detox launch countdown",
+  "tag": null,
+  "settings": [
+    { "type": "header", "content": "Background" },
+    { "type": "image_picker", "id": "background_image", "label": "Background image" },
+    { "type": "color", "id": "background_color", "label": "Background color", "default": "#000000" },
+    { "type": "range", "id": "overlay_opacity", "label": "Overlay opacity", "min": 0, "max": 100, "step": 5, "unit": "%", "default": 60 },
+    { "type": "header", "content": "Branding" },
+    { "type": "image_picker", "id": "logo_image", "label": "Logo image" },
+    { "type": "header", "content": "Countdown" },
+    { "type": "text", "id": "launch_date", "label": "Launch date and time", "default": "2026-12-31T23:59:59" },
+    { "type": "header", "content": "Fonts" },
+    { "type": "font_picker", "id": "heading_font", "label": "Heading font", "default": "archivo_black_n4" },
+    { "type": "font_picker", "id": "body_font", "label": "Body font", "default": "work_sans_n4" }
+  ],
+  "presets": [{ "name": "Detox launch countdown" }]
+}
+{% endschema %}

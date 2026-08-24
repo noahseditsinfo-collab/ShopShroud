@@ -1,0 +1,983 @@
+{% doc %}
+  @prompt
+    START YOUR ORDER
+    
+    Request Your Firm Quote
+    Fill out a few details and we'll get back to you within 1–2 business days with a firm quote and mockup.
+    
+    Just the basics is fine. Name, contact info, and a quick line about what you want — we'll work out the rest over email within 1-2 business days.
+    
+    ABOUT YOU
+    Full name *
+    
+    Email *
+    
+    Phone *
+    
+    What kind of group? *
+    Church
+    Youth group
+    Camp / retreat
+    Mission team
+    College ministry
+    Small business
+    Other
+    ABOUT YOUR ORDER
+    What are you trying to make? *
+    
+    Add optional details (group name, exact timeline, decoration type, artwork)
+    Have artwork to share? Upload it directly — JPG, PNG, PDF, AI, EPS, SVG, PSD, ZIP (optional, up to 10MB)
+    
+    No file chosen yet — sketch, mockup, or final artwork all work.
+    File too big? Paste a link instead
+    Anything else we should know? (optional)
+    
+    SEND MY QUOTE REQUEST
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-quote-form-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: {{ block.settings.section_padding }}px;
+    background-color: {{ block.settings.background_color }};
+  }
+
+  .ai-quote-form__container-{{ ai_gen_id }} {
+    max-width: {{ block.settings.form_max_width }}px;
+    margin: 0 auto;
+  }
+
+  .ai-quote-form__header-{{ ai_gen_id }} {
+    text-align: {{ block.settings.text_alignment }};
+    margin-bottom: 40px;
+  }
+
+  .ai-quote-form__eyebrow-{{ ai_gen_id }} {
+    font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+    font-weight: {{ block.settings.heading_font.weight }};
+    font-size: {{ block.settings.eyebrow_size }}px;
+    color: {{ block.settings.eyebrow_color }};
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin: 0 0 16px 0;
+  }
+
+  .ai-quote-form__title-{{ ai_gen_id }} {
+    font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+    font-weight: {{ block.settings.heading_font.weight }};
+    font-size: {{ block.settings.title_size }}px;
+    color: {{ block.settings.title_color }};
+    margin: 0 0 16px 0;
+    line-height: 1.2;
+  }
+
+  .ai-quote-form__description-{{ ai_gen_id }} {
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-weight: {{ block.settings.body_font.weight }};
+    font-size: {{ block.settings.description_size }}px;
+    color: {{ block.settings.text_color }};
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  .ai-quote-form__form-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .ai-quote-form__section-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .ai-quote-form__section-title-{{ ai_gen_id }} {
+    font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+    font-weight: {{ block.settings.heading_font.weight }};
+    font-size: {{ block.settings.section_title_size }}px;
+    color: {{ block.settings.section_title_color }};
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    margin: 0 0 8px 0;
+    padding-bottom: 8px;
+    border-bottom: 2px solid {{ block.settings.border_color }};
+  }
+
+  .ai-quote-form__field-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .ai-quote-form__label-{{ ai_gen_id }} {
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-weight: {{ block.settings.body_font.weight }};
+    font-size: {{ block.settings.label_size }}px;
+    color: {{ block.settings.text_color }};
+  }
+
+  .ai-quote-form__required-{{ ai_gen_id }} {
+    color: {{ block.settings.required_color }};
+  }
+
+  .ai-quote-form__input-{{ ai_gen_id }},
+  .ai-quote-form__textarea-{{ ai_gen_id }},
+  .ai-quote-form__select-{{ ai_gen_id }} {
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-weight: {{ block.settings.body_font.weight }};
+    font-size: {{ block.settings.input_size }}px;
+    padding: 12px 16px;
+    border: 1px solid {{ block.settings.input_border_color }};
+    border-radius: {{ block.settings.input_border_radius }}px;
+    background-color: {{ block.settings.input_background }};
+    color: {{ block.settings.text_color }};
+    width: 100%;
+  }
+
+  .ai-quote-form__input-{{ ai_gen_id }}:focus,
+  .ai-quote-form__textarea-{{ ai_gen_id }}:focus,
+  .ai-quote-form__select-{{ ai_gen_id }}:focus {
+    outline: 2px solid {{ block.settings.input_focus_color }};
+    outline-offset: 2px;
+    border-color: {{ block.settings.input_focus_color }};
+  }
+
+  .ai-quote-form__textarea-{{ ai_gen_id }} {
+    min-height: 120px;
+    resize: vertical;
+  }
+
+  .ai-quote-form__select-{{ ai_gen_id }} {
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%230A0A0A' d='M1.41 0L6 4.59L10.59 0L12 1.41l-6 6l-6-6z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 16px center;
+    padding-right: 40px;
+  }
+
+  .ai-quote-form__file-wrapper-{{ ai_gen_id }} {
+    position: relative;
+  }
+
+  .ai-quote-form__file-input-{{ ai_gen_id }} {
+    position: absolute;
+    opacity: 0;
+    width: 0.1px;
+    height: 0.1px;
+    overflow: hidden;
+  }
+
+  .ai-quote-form__file-label-{{ ai_gen_id }} {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    background-color: {{ block.settings.file_button_bg }};
+    color: {{ block.settings.file_button_text }};
+    border: 1px solid {{ block.settings.input_border_color }};
+    border-radius: {{ block.settings.input_border_radius }}px;
+    cursor: pointer;
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-weight: {{ block.settings.body_font.weight }};
+    font-size: {{ block.settings.input_size }}px;
+    transition: background-color 0.2s ease;
+  }
+
+  .ai-quote-form__file-label-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.file_button_hover_bg }};
+  }
+
+  .ai-quote-form__file-name-{{ ai_gen_id }} {
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-size: {{ block.settings.input_size }}px;
+    color: {{ block.settings.text_color }};
+    margin-top: 8px;
+  }
+
+  .ai-quote-form__helper-{{ ai_gen_id }} {
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-size: {{ block.settings.helper_size }}px;
+    color: {{ block.settings.helper_color }};
+    line-height: 1.4;
+  }
+
+  .ai-quote-form__submit-{{ ai_gen_id }} {
+    font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+    font-weight: {{ block.settings.heading_font.weight }};
+    font-size: {{ block.settings.button_size }}px;
+    padding: 16px 48px;
+    background-color: {{ block.settings.button_bg }};
+    color: {{ block.settings.button_text }};
+    border: none;
+    border-radius: {{ block.settings.button_border_radius }}px;
+    cursor: pointer;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: background-color 0.2s ease;
+    align-self: {{ block.settings.button_alignment }};
+  }
+
+  .ai-quote-form__submit-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.button_hover_bg }};
+  }
+
+  .ai-quote-form__success-{{ ai_gen_id }} {
+    padding: 20px;
+    background-color: {{ block.settings.success_bg }};
+    color: {{ block.settings.success_text }};
+    border-radius: {{ block.settings.input_border_radius }}px;
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-size: {{ block.settings.input_size }}px;
+    text-align: center;
+  }
+
+  .ai-quote-form__error-{{ ai_gen_id }} {
+    padding: 20px;
+    background-color: {{ block.settings.error_bg }};
+    color: {{ block.settings.error_text }};
+    border-radius: {{ block.settings.input_border_radius }}px;
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-size: {{ block.settings.input_size }}px;
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-quote-form-{{ ai_gen_id }} {
+      padding: {{ block.settings.section_padding | times: 0.6 }}px;
+    }
+
+    .ai-quote-form__title-{{ ai_gen_id }} {
+      font-size: {{ block.settings.title_size | times: 0.7 }}px;
+    }
+
+    .ai-quote-form__eyebrow-{{ ai_gen_id }} {
+      font-size: {{ block.settings.eyebrow_size | times: 0.8 }}px;
+    }
+
+    .ai-quote-form__submit-{{ ai_gen_id }} {
+      width: 100%;
+      align-self: stretch;
+    }
+  }
+{% endstyle %}
+
+<quote-request-form-{{ ai_gen_id }}
+  class="ai-quote-form-{{ ai_gen_id }}"
+  {{ block.shopify_attributes }}
+>
+  <div class="ai-quote-form__container-{{ ai_gen_id }}">
+    <div class="ai-quote-form__header-{{ ai_gen_id }}">
+      {% if block.settings.eyebrow != blank %}
+        <div class="ai-quote-form__eyebrow-{{ ai_gen_id }}">{{ block.settings.eyebrow }}</div>
+      {% endif %}
+      {% if block.settings.title != blank %}
+        <h2 class="ai-quote-form__title-{{ ai_gen_id }}">{{ block.settings.title }}</h2>
+      {% endif %}
+      {% if block.settings.description != blank %}
+        <div class="ai-quote-form__description-{{ ai_gen_id }}">{{ block.settings.description }}</div>
+      {% endif %}
+    </div>
+
+    {%- form 'contact' -%}
+      <input type="hidden" name="contact[form_type]" value="quote_request">
+      
+      {% if form.posted_successfully? %}
+        <div class="ai-quote-form__success-{{ ai_gen_id }}">
+          {{ block.settings.success_message }}
+        </div>
+      {% else %}
+        <div class="ai-quote-form__form-{{ ai_gen_id }}">
+          {% if form.errors %}
+            <div class="ai-quote-form__error-{{ ai_gen_id }}">
+              <strong>{{ block.settings.error_heading }}</strong>
+              <ul style="margin: 8px 0 0 20px;">
+                {% for field in form.errors %}
+                  <li>{{ field | capitalize }}: {{ form.errors.messages[field] }}</li>
+                {% endfor %}
+              </ul>
+            </div>
+          {% endif %}
+
+          <div class="ai-quote-form__section-{{ ai_gen_id }}">
+            <h3 class="ai-quote-form__section-title-{{ ai_gen_id }}">{{ block.settings.section_1_title }}</h3>
+            
+            <div class="ai-quote-form__field-{{ ai_gen_id }}">
+              <label class="ai-quote-form__label-{{ ai_gen_id }}" for="quote-name-{{ ai_gen_id }}">
+                {{ block.settings.name_label }} <span class="ai-quote-form__required-{{ ai_gen_id }}">*</span>
+              </label>
+              <input
+                type="text"
+                id="quote-name-{{ ai_gen_id }}"
+                name="contact[name]"
+                class="ai-quote-form__input-{{ ai_gen_id }}"
+                required
+                aria-required="true"
+              >
+            </div>
+
+            <div class="ai-quote-form__field-{{ ai_gen_id }}">
+              <label class="ai-quote-form__label-{{ ai_gen_id }}" for="quote-email-{{ ai_gen_id }}">
+                {{ block.settings.email_label }} <span class="ai-quote-form__required-{{ ai_gen_id }}">*</span>
+              </label>
+              <input
+                type="email"
+                id="quote-email-{{ ai_gen_id }}"
+                name="contact[email]"
+                class="ai-quote-form__input-{{ ai_gen_id }}"
+                required
+                aria-required="true"
+                autocomplete="email"
+              >
+            </div>
+
+            <div class="ai-quote-form__field-{{ ai_gen_id }}">
+              <label class="ai-quote-form__label-{{ ai_gen_id }}" for="quote-phone-{{ ai_gen_id }}">
+                {{ block.settings.phone_label }} <span class="ai-quote-form__required-{{ ai_gen_id }}">*</span>
+              </label>
+              <input
+                type="tel"
+                id="quote-phone-{{ ai_gen_id }}"
+                name="contact[phone]"
+                class="ai-quote-form__input-{{ ai_gen_id }}"
+                required
+                aria-required="true"
+                autocomplete="tel"
+              >
+            </div>
+
+            <div class="ai-quote-form__field-{{ ai_gen_id }}">
+              <label class="ai-quote-form__label-{{ ai_gen_id }}" for="quote-group-type-{{ ai_gen_id }}">
+                {{ block.settings.group_type_label }} <span class="ai-quote-form__required-{{ ai_gen_id }}">*</span>
+              </label>
+              <select
+                id="quote-group-type-{{ ai_gen_id }}"
+                name="contact[group_type]"
+                class="ai-quote-form__select-{{ ai_gen_id }}"
+                required
+                aria-required="true"
+              >
+                <option value="">Select an option</option>
+                <option value="Church">Church</option>
+                <option value="Youth group">Youth group</option>
+                <option value="Camp / retreat">Camp / retreat</option>
+                <option value="Mission team">Mission team</option>
+                <option value="College ministry">College ministry</option>
+                <option value="Small business">Small business</option>
+                <option value="Other">Other</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="ai-quote-form__section-{{ ai_gen_id }}">
+            <h3 class="ai-quote-form__section-title-{{ ai_gen_id }}">{{ block.settings.section_2_title }}</h3>
+            
+            <div class="ai-quote-form__field-{{ ai_gen_id }}">
+              <label class="ai-quote-form__label-{{ ai_gen_id }}" for="quote-product-{{ ai_gen_id }}">
+                {{ block.settings.product_label }} <span class="ai-quote-form__required-{{ ai_gen_id }}">*</span>
+              </label>
+              <input
+                type="text"
+                id="quote-product-{{ ai_gen_id }}"
+                name="contact[product]"
+                class="ai-quote-form__input-{{ ai_gen_id }}"
+                required
+                aria-required="true"
+              >
+            </div>
+
+            <div class="ai-quote-form__field-{{ ai_gen_id }}">
+              <label class="ai-quote-form__label-{{ ai_gen_id }}" for="quote-details-{{ ai_gen_id }}">
+                {{ block.settings.details_label }}
+              </label>
+              <textarea
+                id="quote-details-{{ ai_gen_id }}"
+                name="contact[details]"
+                class="ai-quote-form__textarea-{{ ai_gen_id }}"
+                placeholder="{{ block.settings.details_placeholder }}"
+              ></textarea>
+            </div>
+
+            <div class="ai-quote-form__field-{{ ai_gen_id }}">
+              <label class="ai-quote-form__label-{{ ai_gen_id }}">
+                {{ block.settings.artwork_label }}
+              </label>
+              <div class="ai-quote-form__file-wrapper-{{ ai_gen_id }}">
+                <input
+                  type="file"
+                  id="quote-file-{{ ai_gen_id }}"
+                  class="ai-quote-form__file-input-{{ ai_gen_id }}"
+                  accept=".jpg,.jpeg,.png,.pdf,.ai,.eps,.svg,.psd,.zip"
+                  data-file-input
+                >
+                <label for="quote-file-{{ ai_gen_id }}" class="ai-quote-form__file-label-{{ ai_gen_id }}">
+                  <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M10 4V16M4 10H16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+                  </svg>
+                  Choose file
+                </label>
+                <div class="ai-quote-form__file-name-{{ ai_gen_id }}" data-file-name>{{ block.settings.file_helper }}</div>
+              </div>
+              <div class="ai-quote-form__helper-{{ ai_gen_id }}">{{ block.settings.file_types }}</div>
+            </div>
+
+            <div class="ai-quote-form__field-{{ ai_gen_id }}">
+              <label class="ai-quote-form__label-{{ ai_gen_id }}" for="quote-link-{{ ai_gen_id }}">
+                {{ block.settings.link_label }}
+              </label>
+              <input
+                type="url"
+                id="quote-link-{{ ai_gen_id }}"
+                name="contact[artwork_link]"
+                class="ai-quote-form__input-{{ ai_gen_id }}"
+                placeholder="{{ block.settings.link_placeholder }}"
+              >
+            </div>
+
+            <div class="ai-quote-form__field-{{ ai_gen_id }}">
+              <label class="ai-quote-form__label-{{ ai_gen_id }}" for="quote-notes-{{ ai_gen_id }}">
+                {{ block.settings.notes_label }}
+              </label>
+              <textarea
+                id="quote-notes-{{ ai_gen_id }}"
+                name="contact[additional_notes]"
+                class="ai-quote-form__textarea-{{ ai_gen_id }}"
+              ></textarea>
+            </div>
+          </div>
+
+          <button type="submit" class="ai-quote-form__submit-{{ ai_gen_id }}">
+            {{ block.settings.submit_text }}
+          </button>
+        </div>
+      {% endif %}
+    {%- endform -%}
+  </div>
+</quote-request-form-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class QuoteRequestForm{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.fileInput = this.querySelector('[data-file-input]');
+        this.fileNameDisplay = this.querySelector('[data-file-name]');
+        
+        if (this.fileInput && this.fileNameDisplay) {
+          this.fileInput.addEventListener('change', this.handleFileChange.bind(this));
+        }
+      }
+
+      handleFileChange(event) {
+        const file = event.target.files[0];
+        if (file) {
+          const maxSize = 10 * 1024 * 1024;
+          if (file.size > maxSize) {
+            this.fileNameDisplay.textContent = 'File too large. Maximum size is 10MB.';
+            this.fileInput.value = '';
+          } else {
+            this.fileNameDisplay.textContent = file.name;
+          }
+        } else {
+          this.fileNameDisplay.textContent = '{{ block.settings.file_helper }}';
+        }
+      }
+    }
+
+    customElements.define('quote-request-form-{{ ai_gen_id }}', QuoteRequestForm{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Quote request form",
+  "settings": [
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow text",
+      "default": "Start your order"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Title",
+      "default": "Request your firm quote"
+    },
+    {
+      "type": "textarea",
+      "id": "description",
+      "label": "Description",
+      "default": "Fill out a few details and we'll get back to you within 1–2 business days with a firm quote and mockup."
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "options": [
+        {
+          "value": "left",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        }
+      ],
+      "default": "left"
+    },
+    {
+      "type": "header",
+      "content": "Form sections"
+    },
+    {
+      "type": "text",
+      "id": "section_1_title",
+      "label": "Section 1 title",
+      "default": "About you"
+    },
+    {
+      "type": "text",
+      "id": "section_2_title",
+      "label": "Section 2 title",
+      "default": "About your order"
+    },
+    {
+      "type": "header",
+      "content": "Field labels"
+    },
+    {
+      "type": "text",
+      "id": "name_label",
+      "label": "Name field",
+      "default": "Full name"
+    },
+    {
+      "type": "text",
+      "id": "email_label",
+      "label": "Email field",
+      "default": "Email"
+    },
+    {
+      "type": "text",
+      "id": "phone_label",
+      "label": "Phone field",
+      "default": "Phone"
+    },
+    {
+      "type": "text",
+      "id": "group_type_label",
+      "label": "Group type field",
+      "default": "What kind of group?"
+    },
+    {
+      "type": "text",
+      "id": "product_label",
+      "label": "Product field",
+      "default": "What are you trying to make?"
+    },
+    {
+      "type": "text",
+      "id": "details_label",
+      "label": "Details field",
+      "default": "Add optional details"
+    },
+    {
+      "type": "text",
+      "id": "details_placeholder",
+      "label": "Details placeholder",
+      "default": "Group name, exact timeline, decoration type, artwork"
+    },
+    {
+      "type": "text",
+      "id": "artwork_label",
+      "label": "Artwork upload field",
+      "default": "Have artwork to share? Upload it directly"
+    },
+    {
+      "type": "text",
+      "id": "file_helper",
+      "label": "File helper text",
+      "default": "No file chosen yet — sketch, mockup, or final artwork all work."
+    },
+    {
+      "type": "text",
+      "id": "file_types",
+      "label": "File types text",
+      "default": "JPG, PNG, PDF, AI, EPS, SVG, PSD, ZIP (optional, up to 10MB)"
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Link field",
+      "default": "File too big? Paste a link instead"
+    },
+    {
+      "type": "text",
+      "id": "link_placeholder",
+      "label": "Link placeholder",
+      "default": "https://"
+    },
+    {
+      "type": "text",
+      "id": "notes_label",
+      "label": "Notes field",
+      "default": "Anything else we should know? (optional)"
+    },
+    {
+      "type": "text",
+      "id": "submit_text",
+      "label": "Submit button",
+      "default": "Send my quote request"
+    },
+    {
+      "type": "header",
+      "content": "Messages"
+    },
+    {
+      "type": "textarea",
+      "id": "success_message",
+      "label": "Success message",
+      "default": "Thank you! We've received your quote request and will get back to you within 1-2 business days."
+    },
+    {
+      "type": "text",
+      "id": "error_heading",
+      "label": "Error heading",
+      "default": "Please fix the following errors:"
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "form_max_width",
+      "label": "Form max width",
+      "min": 600,
+      "max": 1200,
+      "step": 50,
+      "unit": "px",
+      "default": 800
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Section padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "select",
+      "id": "button_alignment",
+      "label": "Button alignment",
+      "options": [
+        {
+          "value": "flex-start",
+          "label": "Left"
+        },
+        {
+          "value": "center",
+          "label": "Center"
+        },
+        {
+          "value": "flex-end",
+          "label": "Right"
+        }
+      ],
+      "default": "flex-start"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "text_color",
+      "label": "Text",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "eyebrow_color",
+      "label": "Eyebrow",
+      "default": "#4D4D4D"
+    },
+    {
+      "type": "color",
+      "id": "title_color",
+      "label": "Title",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "section_title_color",
+      "label": "Section titles",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "border_color",
+      "label": "Borders",
+      "default": "#DDDDDD"
+    },
+    {
+      "type": "color",
+      "id": "required_color",
+      "label": "Required asterisk",
+      "default": "#D82C0D"
+    },
+    {
+      "type": "color",
+      "id": "helper_color",
+      "label": "Helper text",
+      "default": "#4D4D4D"
+    },
+    {
+      "type": "header",
+      "content": "Input style"
+    },
+    {
+      "type": "color",
+      "id": "input_background",
+      "label": "Input background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "input_border_color",
+      "label": "Input border",
+      "default": "#DDDDDD"
+    },
+    {
+      "type": "color",
+      "id": "input_focus_color",
+      "label": "Input focus",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "range",
+      "id": "input_border_radius",
+      "label": "Input border radius",
+      "min": 0,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "Button style"
+    },
+    {
+      "type": "color",
+      "id": "button_bg",
+      "label": "Background",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "button_text",
+      "label": "Text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "button_hover_bg",
+      "label": "Hover background",
+      "default": "#4D4D4D"
+    },
+    {
+      "type": "range",
+      "id": "button_border_radius",
+      "label": "Border radius",
+      "min": 0,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    },
+    {
+      "type": "header",
+      "content": "File upload button"
+    },
+    {
+      "type": "color",
+      "id": "file_button_bg",
+      "label": "Background",
+      "default": "#F1F1F1"
+    },
+    {
+      "type": "color",
+      "id": "file_button_text",
+      "label": "Text",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "file_button_hover_bg",
+      "label": "Hover background",
+      "default": "#DDDDDD"
+    },
+    {
+      "type": "header",
+      "content": "Message colors"
+    },
+    {
+      "type": "color",
+      "id": "success_bg",
+      "label": "Success background",
+      "default": "#D4EDDA"
+    },
+    {
+      "type": "color",
+      "id": "success_text",
+      "label": "Success text",
+      "default": "#155724"
+    },
+    {
+      "type": "color",
+      "id": "error_bg",
+      "label": "Error background",
+      "default": "#F8D7DA"
+    },
+    {
+      "type": "color",
+      "id": "error_text",
+      "label": "Error text",
+      "default": "#721C24"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "archivo_black_n4"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Body font",
+      "default": "work_sans_n4"
+    },
+    {
+      "type": "range",
+      "id": "eyebrow_size",
+      "label": "Eyebrow size",
+      "min": 10,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "title_size",
+      "label": "Title size",
+      "min": 20,
+      "max": 60,
+      "step": 2,
+      "unit": "px",
+      "default": 36
+    },
+    {
+      "type": "range",
+      "id": "description_size",
+      "label": "Description size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "section_title_size",
+      "label": "Section title size",
+      "min": 12,
+      "max": 28,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "label_size",
+      "label": "Label size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "input_size",
+      "label": "Input size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "helper_size",
+      "label": "Helper text size",
+      "min": 10,
+      "max": 16,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "button_size",
+      "label": "Button size",
+      "min": 12,
+      "max": 24,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    }
+  ],
+  "presets": [
+    {
+      "name": "Quote request form"
+    }
+  ]
+}
+{% endschema %}

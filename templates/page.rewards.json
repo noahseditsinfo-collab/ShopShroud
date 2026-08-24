@@ -1,9 +1,1 @@
-{
-  "sections": {
-    "main": {
-      "type": "rewards-content",
-      "settings": {}
-    }
-  },
-  "order": ["main"]
-}
+{"sections":{"main":{"type":"rewards-content","blocks":{"tier_cTTVQj":{"type":"tier","settings":{"title":"1 point per $1","description":"Earn a point for every dollar spent, redeemable toward future orders."}}},"block_order":["tier_cTTVQj"],"settings":{"heading":"ShopShroud Rewards","subheading":"Earn points on every order and unlock perks as you go.","button_label":"Join Rewards","button_link":""}}},"order":["main"]}

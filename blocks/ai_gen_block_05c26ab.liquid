@@ -1,0 +1,70 @@
+{% doc %}
+  @prompt
+    On the New Arrivals collection page, add custom CSS that forces the filter and sort label text ("Availability", "Price", "Sort") to be black (#000000), while keeping product card title/name text white (#ffffff). Target them with specific selectors so they don't conflict., Availability
+    Price
+    Sort
+     make this text black j, Availability
+    Price
+    Sort
+     make this text black j
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-collection-label-color-fix-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    height: 0;
+    overflow: hidden;
+  }
+
+  .template-collection.collection-new-arrivals .facets__summary,
+  .template-collection.collection-new-arrivals .facets__summary-label,
+  .template-collection.collection-new-arrivals .facets__label,
+  .template-collection.collection-new-arrivals .facet-filters__label,
+  .template-collection.collection-new-arrivals .facet-filters__field label,
+  .template-collection.collection-new-arrivals .facets__display label,
+  .template-collection.collection-new-arrivals .facets__sort label,
+  .template-collection.collection-new-arrivals .facets__sort select,
+  .template-collection.collection-new-arrivals .select__select {
+    color: {{ block.settings.filter_label_color }} !important;
+  }
+{% endstyle %}
+
+<div
+  class="ai-collection-label-color-fix-{{ ai_gen_id }}"
+  aria-hidden="true"
+  {{ block.shopify_attributes }}
+></div>
+
+{% schema %}
+{
+  "name": "Collection label colors",
+  "settings": [
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "color",
+      "id": "filter_label_color",
+      "label": "Filter labels",
+      "default": "#000000"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection label colors"
+    }
+  ],
+  "tag": null,
+  "class": "collection-label-colors"
+}
+{% endschema %}

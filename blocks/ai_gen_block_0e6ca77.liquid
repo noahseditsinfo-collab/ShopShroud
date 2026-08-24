@@ -1,0 +1,900 @@
+{% doc %}
+  @prompt
+    Christian Mental Health Blogs
+    Faith, mental health, and the heart behind the brand.
+    Jesus Series zip-up patchwork hoodie, Christian streetwear by Forty-Six Ten
+    JULY 9, 2026
+    
+    Christian Streetwear: Faith You Can Actually Wear Every Day
+    
+    A lot of Christian clothing is corny. Here's my honest take on what makes faith apparel actually wearable, quality, fit, and designs that aren't cheesy.
+    
+    Read article →
+    What a Friend 90s retro gym tee by Forty-Six Ten
+    JUL 9, 2026
+    
+    How to Grow Closer to God (Small Daily Habits That Actually Stick)
+    
+    The big spiritual reset never lasts. Growing closer to God is about small, sustainable habits, not heroic resolutions. A few minutes of...
+    
+    Read more →
+    Tomorrow Needs You 988 tee by Forty-Six Ten
+    JUL 9, 2026
+    
+    Biblical Affirmations: Speaking God's Truth Over Your Mind
+    
+    Let me be clear up front. This isn't positive thinking. Biblical affirmations are you repeating back what God already said. Here are...
+    
+    Read more →
+    Jesus Is King camo tee by Forty-Six Ten
+    JUL 9, 2026
+    
+    Is It Okay to Wear Christian Clothing? An Honest Take
+    
+    Is wearing a Christian shirt prideful, cringe, or performative? Honestly, it can be, if the heart is wrong. Here's how I actually...
+    
+    Read more →
+    Days You Prayed For heavy tee by Forty-Six Ten
+    JUL 9, 2026
+    
+    How to Pray When You Don't Know What to Say
+    
+    Feel awkward or stuck when you pray? Prayer is just talking to God honestly. Here's a simple framework, how to pray Scripture,...
+    
+    Read more →
+    Christian rubber bracelet packs by Forty-Six Ten
+    JUL 9, 2026
+    
+    Bible Verses for Students: Encouragement for the School Year
+    
+    A new school year has a way of piling up. Here are real verses that actually help when school feels like a...
+    
+    Read more →
+    I Love Jesus stitched premium tee by Forty-Six Ten
+    JUL 9, 2026
+    
+    Who Does God Say I Am? Bible Verses About Identity in Christ
+    
+    Ask who you are and you'll hear a list. Your job, your worst mistake, what someone said years ago. But your feelings...
+    
+    Read more →
+    Hold Your Horses heavy tee by Forty-Six Ten
+    JUL 9, 2026
+    
+    How to Trust God When Life Doesn't Make Sense
+    
+    Some seasons just don't add up. Here's an honest look at trusting God's character when you can't see the plan, plus a...
+    
+    Read more →
+    God Cares About Your Mental Health tee by Forty-Six Ten
+    JUL 9, 2026
+    
+    Bible Verses for Depression: What Scripture Says in the Dark
+    
+    Depression is heavy, and I'm not going to hand you a verse and pretend it fixes everything. But Scripture meets us in...
+    
+    Read more →
+    Jesus Saves heavy tee, a Christian gift idea for teens
+    JUL 9, 2026
+    
+    Christian Gifts for Teens (That Aren't Cheesy)
+    
+    Buying for a teenager is its own kind of hard. They can smell a corny gift from across the room. Here's an...
+    
+    Read more →
+    Walk By Faith premium heavy tee by Forty-Six Ten
+    JUL 9, 2026
+    
+    How to Start Reading the Bible (a Simple Plan for Beginners)
+    
+    The Bible can feel intimidating when you're starting out. Here's a simple, low-pressure plan for a beginner: where to actually start, how...
+    
+    Read more →
+    Jesus Loves You brown stitched hoodie by Forty-Six Ten
+    JUL 9, 2026
+    
+    Bible Verses for When You Feel Alone
+    
+    If you're feeling alone tonight, I'm glad you're here. Real verses on God's presence and why you're never actually as alone as...
+    
+    Read more →
+    He Won't Give Up On Me Christian streetwear tee by Forty-Six Ten
+    JUL 9, 2026
+    
+    Bible Verses About Fear (and How to Face It)
+    
+    Fear is human, and the Bible says "do not be afraid" more than almost anything. Here are real verses about fear, with...
+    
+    Read more →
+    Older →
+{% enddoc %}
+{% assign ai_gen_id = block.id | replace: '_', '' | downcase %}
+
+{% style %}
+  .ai-blog-grid-{{ ai_gen_id }} {
+    display: block;
+    width: {{ block.settings.desktop_width_percent }}%;
+    max-width: 100%;
+    margin: 0 auto;
+    padding: {{ block.settings.section_padding }}px 0;
+  }
+
+  .ai-blog-grid-header-{{ ai_gen_id }} {
+    margin-bottom: {{ block.settings.header_spacing }}px;
+  }
+
+  .ai-blog-grid-title-{{ ai_gen_id }} {
+    font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+    font-weight: {{ block.settings.heading_font.weight }};
+    font-size: {{ block.settings.heading_size }}px;
+    color: {{ block.settings.heading_color }};
+    margin: 0 0 {{ block.settings.subtitle_spacing }}px 0;
+    line-height: 1.2;
+  }
+
+  .ai-blog-grid-subtitle-{{ ai_gen_id }} {
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-weight: {{ block.settings.body_font.weight }};
+    font-size: {{ block.settings.subtitle_size }}px;
+    color: {{ block.settings.subtitle_color }};
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .ai-blog-grid-container-{{ ai_gen_id }} {
+    display: grid;
+    grid-template-columns: repeat({{ block.settings.columns_desktop }}, 1fr);
+    gap: {{ block.settings.grid_gap }}px;
+    margin-bottom: {{ block.settings.pagination_spacing }}px;
+  }
+
+  .ai-blog-card-{{ ai_gen_id }} {
+    display: flex;
+    flex-direction: column;
+    background-color: {{ block.settings.card_background }};
+    border-radius: {{ block.settings.card_border_radius }}px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-decoration: none;
+    color: inherit;
+    height: 100%;
+  }
+
+  .ai-blog-card-{{ ai_gen_id }}:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  }
+
+  .ai-blog-card-image-wrapper-{{ ai_gen_id }} {
+    position: relative;
+    width: 100%;
+    padding-bottom: {{ block.settings.image_aspect_ratio }}%;
+    overflow: hidden;
+    background-color: {{ block.settings.image_placeholder_bg }};
+  }
+
+  .ai-blog-card-image-{{ ai_gen_id }} {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .ai-blog-card-image-wrapper-{{ ai_gen_id }} svg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    height: 60%;
+    opacity: 0.3;
+  }
+
+  .ai-blog-card-content-{{ ai_gen_id }} {
+    padding: {{ block.settings.card_padding }}px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  .ai-blog-card-date-{{ ai_gen_id }} {
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-weight: {{ block.settings.body_font.weight }};
+    font-size: {{ block.settings.date_size }}px;
+    color: {{ block.settings.date_color }};
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: {{ block.settings.date_spacing }}px;
+  }
+
+  .ai-blog-card-title-{{ ai_gen_id }} {
+    font-family: {{ block.settings.heading_font.family }}, {{ block.settings.heading_font.fallback_families }};
+    font-weight: {{ block.settings.heading_font.weight }};
+    font-size: {{ block.settings.card_title_size }}px;
+    color: {{ block.settings.card_title_color }};
+    margin: 0 0 {{ block.settings.excerpt_spacing }}px 0;
+    line-height: 1.3;
+  }
+
+  .ai-blog-card-excerpt-{{ ai_gen_id }} {
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-weight: {{ block.settings.body_font.weight }};
+    font-size: {{ block.settings.excerpt_size }}px;
+    color: {{ block.settings.excerpt_color }};
+    line-height: 1.6;
+    margin: 0 0 {{ block.settings.link_spacing }}px 0;
+    flex-grow: 1;
+  }
+
+  .ai-blog-card-link-{{ ai_gen_id }} {
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-weight: 600;
+    font-size: {{ block.settings.link_size }}px;
+    color: {{ block.settings.link_color }};
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: color 0.3s ease;
+  }
+
+  .ai-blog-card-link-{{ ai_gen_id }}:hover {
+    color: {{ block.settings.link_hover_color }};
+  }
+
+  .ai-blog-card-link-{{ ai_gen_id }} svg {
+    width: 16px;
+    height: 16px;
+    transition: transform 0.3s ease;
+  }
+
+  .ai-blog-card-{{ ai_gen_id }}:hover .ai-blog-card-link-{{ ai_gen_id }} svg {
+    transform: translateX(4px);
+  }
+
+  .ai-blog-pagination-{{ ai_gen_id }} {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .ai-blog-pagination-link-{{ ai_gen_id }} {
+    font-family: {{ block.settings.body_font.family }}, {{ block.settings.body_font.fallback_families }};
+    font-weight: 600;
+    font-size: {{ block.settings.pagination_size }}px;
+    color: {{ block.settings.pagination_color }};
+    background-color: {{ block.settings.pagination_bg }};
+    padding: 10px 18px;
+    border-radius: {{ block.settings.pagination_border_radius }}px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .ai-blog-pagination-link-{{ ai_gen_id }}:hover {
+    background-color: {{ block.settings.pagination_hover_bg }};
+    color: {{ block.settings.pagination_hover_color }};
+  }
+
+  .ai-blog-pagination-link-{{ ai_gen_id }} svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  @media screen and (max-width: 989px) {
+    .ai-blog-grid-container-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_tablet }}, 1fr);
+    }
+
+    .ai-blog-grid-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.heading_size }}px * 0.8);
+    }
+
+    .ai-blog-card-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.card_title_size }}px * 0.9);
+    }
+  }
+
+  @media screen and (max-width: 749px) {
+    .ai-blog-grid-container-{{ ai_gen_id }} {
+      grid-template-columns: repeat({{ block.settings.columns_mobile }}, 1fr);
+    }
+
+    .ai-blog-grid-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.heading_size }}px * 0.7);
+    }
+
+    .ai-blog-card-title-{{ ai_gen_id }} {
+      font-size: calc({{ block.settings.card_title_size }}px * 0.85);
+    }
+
+    .ai-blog-grid-{{ ai_gen_id }} {
+      padding: calc({{ block.settings.section_padding }}px * 0.6) 0;
+    }
+  }
+{% endstyle %}
+
+<blog-grid-{{ ai_gen_id }} class="ai-blog-grid-{{ ai_gen_id }}" {{ block.shopify_attributes }}>
+  {% if block.settings.show_header %}
+    <div class="ai-blog-grid-header-{{ ai_gen_id }}">
+      {% if block.settings.heading != blank %}
+        <h2 class="ai-blog-grid-title-{{ ai_gen_id }}">{{ block.settings.heading }}</h2>
+      {% endif %}
+      {% if block.settings.subtitle != blank %}
+        <div class="ai-blog-grid-subtitle-{{ ai_gen_id }}">{{ block.settings.subtitle }}</div>
+      {% endif %}
+    </div>
+  {% endif %}
+
+  {% if block.settings.blog != blank %}
+    {% paginate block.settings.blog.articles by block.settings.articles_per_page %}
+      <div class="ai-blog-grid-container-{{ ai_gen_id }}">
+        {% for article in block.settings.blog.articles %}
+          <a href="{{ article.url }}" class="ai-blog-card-{{ ai_gen_id }}">
+            <div class="ai-blog-card-image-wrapper-{{ ai_gen_id }}">
+              {% if article.image %}
+                <img
+                  src="{{ article.image | image_url: width: 800 }}"
+                  alt="{{ article.image.alt | escape }}"
+                  class="ai-blog-card-image-{{ ai_gen_id }}"
+                  loading="lazy"
+                  width="800"
+                  height="{{ 800 | divided_by: article.image.aspect_ratio | round }}"
+                >
+              {% else %}
+                {{ 'image' | placeholder_svg_tag }}
+              {% endif %}
+            </div>
+            <div class="ai-blog-card-content-{{ ai_gen_id }}">
+              {% if block.settings.show_date %}
+                <div class="ai-blog-card-date-{{ ai_gen_id }}">
+                  {{ article.published_at | date: block.settings.date_format }}
+                </div>
+              {% endif %}
+              <h3 class="ai-blog-card-title-{{ ai_gen_id }}">{{ article.title }}</h3>
+              {% if block.settings.show_excerpt and article.excerpt != blank %}
+                <div class="ai-blog-card-excerpt-{{ ai_gen_id }}">
+                  {{ article.excerpt | strip_html | truncate: block.settings.excerpt_length }}
+                </div>
+              {% endif %}
+              <span class="ai-blog-card-link-{{ ai_gen_id }}">
+                {{ block.settings.read_more_text }}
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="5" y1="12" x2="19" y2="12"></line>
+                  <polyline points="12 5 19 12 12 19"></polyline>
+                </svg>
+              </span>
+            </div>
+          </a>
+        {% endfor %}
+      </div>
+
+      {% if paginate.pages > 1 and block.settings.show_pagination %}
+        <div class="ai-blog-pagination-{{ ai_gen_id }}">
+          {% if paginate.previous %}
+            <a href="{{ paginate.previous.url }}" class="ai-blog-pagination-link-{{ ai_gen_id }}">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+              {{ block.settings.previous_text }}
+            </a>
+          {% endif %}
+          {% if paginate.next %}
+            <a href="{{ paginate.next.url }}" class="ai-blog-pagination-link-{{ ai_gen_id }}">
+              {{ block.settings.next_text }}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </a>
+          {% endif %}
+        </div>
+      {% endif %}
+    {% endpaginate %}
+  {% else %}
+    <div class="ai-blog-grid-container-{{ ai_gen_id }}">
+      {% for i in (1..block.settings.articles_per_page) %}
+        <div class="ai-blog-card-{{ ai_gen_id }}">
+          <div class="ai-blog-card-image-wrapper-{{ ai_gen_id }}">
+            {{ 'image' | placeholder_svg_tag }}
+          </div>
+          <div class="ai-blog-card-content-{{ ai_gen_id }}">
+            {% if block.settings.show_date %}
+              <div class="ai-blog-card-date-{{ ai_gen_id }}">JUL 9, 2026</div>
+            {% endif %}
+            <h3 class="ai-blog-card-title-{{ ai_gen_id }}">Select a blog to display articles</h3>
+            {% if block.settings.show_excerpt %}
+              <div class="ai-blog-card-excerpt-{{ ai_gen_id }}">
+                Choose a blog from the block settings to show your articles here.
+              </div>
+            {% endif %}
+            <span class="ai-blog-card-link-{{ ai_gen_id }}">
+              {{ block.settings.read_more_text }}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <polyline points="12 5 19 12 12 19"></polyline>
+              </svg>
+            </span>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</blog-grid-{{ ai_gen_id }}>
+
+<script>
+  (function() {
+    class BlogGrid{{ ai_gen_id }} extends HTMLElement {
+      constructor() {
+        super();
+      }
+
+      connectedCallback() {
+        this.style.display = 'block';
+      }
+    }
+
+    customElements.define('blog-grid-{{ ai_gen_id }}', BlogGrid{{ ai_gen_id }});
+  })();
+</script>
+
+{% schema %}
+{
+  "name": "Blog grid",
+  "tag": null,
+  "settings": [
+    {
+      "type": "header",
+      "content": "Blog source"
+    },
+    {
+      "type": "blog",
+      "id": "blog",
+      "label": "Blog"
+    },
+    {
+      "type": "range",
+      "id": "articles_per_page",
+      "label": "Articles per page",
+      "min": 3,
+      "max": 24,
+      "step": 1,
+      "default": 12
+    },
+    {
+      "type": "header",
+      "content": "Header"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_header",
+      "label": "Show header",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Christian Mental Health Blogs"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "subtitle",
+      "label": "Subtitle",
+      "default": "Faith, mental health, and the heart behind the brand."
+    },
+    {
+      "type": "header",
+      "content": "Layout"
+    },
+    {
+      "type": "range",
+      "id": "desktop_width_percent",
+      "label": "Desktop width",
+      "min": 50,
+      "max": 100,
+      "step": 5,
+      "unit": "%",
+      "default": 100
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "label": "Columns on desktop",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 3
+    },
+    {
+      "type": "range",
+      "id": "columns_tablet",
+      "label": "Columns on tablet",
+      "min": 1,
+      "max": 3,
+      "step": 1,
+      "default": 2
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columns on mobile",
+      "options": [
+        {
+          "value": "1",
+          "label": "1"
+        },
+        {
+          "value": "2",
+          "label": "2"
+        }
+      ],
+      "default": "1"
+    },
+    {
+      "type": "range",
+      "id": "grid_gap",
+      "label": "Grid gap",
+      "min": 10,
+      "max": 60,
+      "step": 5,
+      "unit": "px",
+      "default": 30
+    },
+    {
+      "type": "header",
+      "content": "Card style"
+    },
+    {
+      "type": "color",
+      "id": "card_background",
+      "label": "Card background",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "range",
+      "id": "card_border_radius",
+      "label": "Card border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 0
+    },
+    {
+      "type": "range",
+      "id": "card_padding",
+      "label": "Card padding",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 20
+    },
+    {
+      "type": "range",
+      "id": "image_aspect_ratio",
+      "label": "Image aspect ratio",
+      "min": 50,
+      "max": 150,
+      "step": 5,
+      "unit": "%",
+      "default": 75
+    },
+    {
+      "type": "color",
+      "id": "image_placeholder_bg",
+      "label": "Image placeholder background",
+      "default": "#F1F1F1"
+    },
+    {
+      "type": "header",
+      "content": "Article content"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_date",
+      "label": "Show date",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "date_format",
+      "label": "Date format",
+      "default": "%b %d, %Y"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_excerpt",
+      "label": "Show excerpt",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "excerpt_length",
+      "label": "Excerpt length",
+      "min": 50,
+      "max": 300,
+      "step": 10,
+      "default": 120
+    },
+    {
+      "type": "inline_richtext",
+      "id": "read_more_text",
+      "label": "Read more text",
+      "default": "Read article"
+    },
+    {
+      "type": "header",
+      "content": "Pagination"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_pagination",
+      "label": "Show pagination",
+      "default": true
+    },
+    {
+      "type": "inline_richtext",
+      "id": "previous_text",
+      "label": "Previous text",
+      "default": "Older"
+    },
+    {
+      "type": "inline_richtext",
+      "id": "next_text",
+      "label": "Next text",
+      "default": "Newer"
+    },
+    {
+      "type": "header",
+      "content": "Colors"
+    },
+    {
+      "type": "color",
+      "id": "heading_color",
+      "label": "Heading",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "subtitle_color",
+      "label": "Subtitle",
+      "default": "#4D4D4D"
+    },
+    {
+      "type": "color",
+      "id": "card_title_color",
+      "label": "Card title",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "date_color",
+      "label": "Date",
+      "default": "#4D4D4D"
+    },
+    {
+      "type": "color",
+      "id": "excerpt_color",
+      "label": "Excerpt",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "link_color",
+      "label": "Link",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "link_hover_color",
+      "label": "Link hover",
+      "default": "#4D4D4D"
+    },
+    {
+      "type": "color",
+      "id": "pagination_color",
+      "label": "Pagination text",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "color",
+      "id": "pagination_bg",
+      "label": "Pagination background",
+      "default": "#F1F1F1"
+    },
+    {
+      "type": "color",
+      "id": "pagination_hover_color",
+      "label": "Pagination hover text",
+      "default": "#FFFFFF"
+    },
+    {
+      "type": "color",
+      "id": "pagination_hover_bg",
+      "label": "Pagination hover background",
+      "default": "#0A0A0A"
+    },
+    {
+      "type": "header",
+      "content": "Typography"
+    },
+    {
+      "type": "font_picker",
+      "id": "heading_font",
+      "label": "Heading font",
+      "default": "archivo_black_n4"
+    },
+    {
+      "type": "font_picker",
+      "id": "body_font",
+      "label": "Body font",
+      "default": "work_sans_n4"
+    },
+    {
+      "type": "range",
+      "id": "heading_size",
+      "label": "Heading size",
+      "min": 20,
+      "max": 80,
+      "step": 2,
+      "unit": "px",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "subtitle_size",
+      "label": "Subtitle size",
+      "min": 12,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 18
+    },
+    {
+      "type": "range",
+      "id": "card_title_size",
+      "label": "Card title size",
+      "min": 14,
+      "max": 36,
+      "step": 1,
+      "unit": "px",
+      "default": 22
+    },
+    {
+      "type": "range",
+      "id": "date_size",
+      "label": "Date size",
+      "min": 10,
+      "max": 18,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "excerpt_size",
+      "label": "Excerpt size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 15
+    },
+    {
+      "type": "range",
+      "id": "link_size",
+      "label": "Link size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "range",
+      "id": "pagination_size",
+      "label": "Pagination size",
+      "min": 12,
+      "max": 20,
+      "step": 1,
+      "unit": "px",
+      "default": 14
+    },
+    {
+      "type": "header",
+      "content": "Spacing"
+    },
+    {
+      "type": "range",
+      "id": "section_padding",
+      "label": "Section padding",
+      "min": 0,
+      "max": 100,
+      "step": 5,
+      "unit": "px",
+      "default": 60
+    },
+    {
+      "type": "range",
+      "id": "header_spacing",
+      "label": "Header spacing",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "subtitle_spacing",
+      "label": "Subtitle spacing",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "date_spacing",
+      "label": "Date spacing",
+      "min": 5,
+      "max": 30,
+      "step": 1,
+      "unit": "px",
+      "default": 12
+    },
+    {
+      "type": "range",
+      "id": "excerpt_spacing",
+      "label": "Excerpt spacing",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "link_spacing",
+      "label": "Link spacing",
+      "min": 10,
+      "max": 40,
+      "step": 2,
+      "unit": "px",
+      "default": 16
+    },
+    {
+      "type": "range",
+      "id": "pagination_spacing",
+      "label": "Pagination spacing",
+      "min": 20,
+      "max": 80,
+      "step": 5,
+      "unit": "px",
+      "default": 40
+    },
+    {
+      "type": "range",
+      "id": "pagination_border_radius",
+      "label": "Pagination border radius",
+      "min": 0,
+      "max": 30,
+      "step": 2,
+      "unit": "px",
+      "default": 4
+    }
+  ],
+  "presets": [
+    {
+      "name": "Blog grid"
+    }
+  ]
+}
+{% endschema %}

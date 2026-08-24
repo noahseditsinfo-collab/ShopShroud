@@ -1,9 +1,1 @@
-{
-  "sections": {
-    "main": {
-      "type": "main-collection",
-      "settings": {}
-    }
-  },
-  "order": ["main"]
-}
+{"sections":{"main":{"type":"main-collection","custom_css":[".price,.price *,.money,.product-price,.price-item,[class*=\"price\"],[class*=\"Price\"] {color: #ffffff !important;}"," facet-filters *,facets-form *,.facets *,[id*=\"sort\"] *,[id*=\"filter\"] * {color: #000000 !important;}"," .collection facet-filters *,.collection facets-form *,.collection .facets *,.collection [id*=\"sort\"] *,.collection [id*=\"filter\"] * {color: #000000 !important;}"],"settings":{}},"1785811469a12007f5":{"type":"_blocks","custom_css":[],"settings":{}}},"order":["main","1785811469a12007f5"]}
