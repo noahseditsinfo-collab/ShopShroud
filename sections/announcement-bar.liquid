@@ -1,14 +1,75 @@
-<div class="announcement-bar" {% if section.settings.autoplay %}data-autoplay="{{ section.settings.autoplay_speed | times: 1000 }}"{% endif %}>
+{%- capture cross_icon -%}
+  <svg class="announcement-bar__cross" viewBox="0 0 24 32" width="12" height="16" aria-hidden="true">
+    <rect x="9" y="0" width="6" height="32"></rect>
+    <rect x="0" y="9" width="24" height="6"></rect>
+  </svg>
+{%- endcapture -%}
+<div class="announcement-bar announcement-bar--scroll">
   <div class="announcement-bar__track">
-    {%- for block in section.blocks -%}
-      <div class="announcement-bar__item" {{ block.shopify_attributes }}>
-        {%- if block.settings.link != blank -%}<a href="{{ block.settings.link }}">{%- endif -%}
-        {{ block.settings.text }}
-        {%- if block.settings.link != blank -%}</a>{%- endif -%}
+    {%- for repeat in (1..4) -%}
+      <div class="announcement-bar__group"{% if repeat > 1 %} aria-hidden="true"{% endif %}>
+        {%- for block in section.blocks -%}
+          <div class="announcement-bar__item" {% if repeat == 1 %}{{ block.shopify_attributes }}{% endif %}>
+            {%- if block.settings.link != blank -%}<a href="{{ block.settings.link }}">{%- endif -%}
+            {{ block.settings.text }}
+            {%- if block.settings.link != blank -%}</a>{%- endif -%}
+          </div>
+          <div class="announcement-bar__separator">{{ cross_icon }}</div>
+        {%- endfor -%}
       </div>
     {%- endfor -%}
   </div>
 </div>
+
+<style>
+  .announcement-bar--scroll {
+    overflow: hidden;
+    width: 100%;
+  }
+  .announcement-bar--scroll .announcement-bar__track {
+    display: flex;
+    width: max-content;
+    animation: announcement-scroll-rtl {{ section.settings.scroll_speed | default: 12 }}s linear infinite;
+    animation-play-state: running !important;
+  }
+  .announcement-bar--scroll:hover .announcement-bar__track,
+  .announcement-bar--scroll .announcement-bar__track:hover {
+    animation-play-state: running !important;
+  }
+  .announcement-bar--scroll .announcement-bar__group {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+  .announcement-bar--scroll .announcement-bar__item {
+    display: inline-flex !important;
+    flex: 0 0 auto !important;
+    align-items: center;
+    white-space: nowrap;
+    padding: 0 1.25rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+  }
+  .announcement-bar--scroll .announcement-bar__separator {
+    display: inline-flex !important;
+    align-items: center;
+    flex: 0 0 auto !important;
+  }
+  .announcement-bar--scroll .announcement-bar__cross {
+    fill: currentColor;
+    opacity: 0.9;
+  }
+  @keyframes announcement-scroll-rtl {
+    from { transform: translateX(0%); }
+    to { transform: translateX(-25%); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .announcement-bar--scroll .announcement-bar__track {
+      animation: none;
+    }
+  }
+</style>
 
 {% schema %}
 {
@@ -30,6 +91,16 @@
       "step": 1,
       "unit": "s",
       "default": 5
+    },
+    {
+      "type": "range",
+      "id": "scroll_speed",
+      "label": "Scroll speed (seconds per loop)",
+      "min": 8,
+      "max": 60,
+      "step": 1,
+      "unit": "s",
+      "default": 12
     }
   ],
   "blocks": [
